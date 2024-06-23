@@ -1,10 +1,7 @@
-<!-- user-list.component.html -->
-
-<div>
-
+<div class="container mt-4">
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
-      <thead>
+      <thead class="thead-dark">
       <tr>
         <th>Dates</th>
         <th *ngFor="let item of items">{{ item.date }}</th>
@@ -19,30 +16,13 @@
         <td>Amount</td>
         <td *ngFor="let item of items">{{ item.amount }}</td>
       </tr>
-      <tr  *ngFor="let user of users">{{ user.username }}
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
         <td *ngFor="let day of daysInMonth">
-          <input
-            type="checkbox"
-          >
+          <input type="checkbox">
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-
-
-
-
-<!--  <h2>User List</h2>-->
-<!--  <ul>-->
-<!--    <li *ngFor="let user of users">-->
-<!--      {{ user.username }}-->
-
-<!--      <span *ngFor="let day of daysInMonth">-->
-<!--                <input type="checkbox"  [(ngModel)]="userCheckboxes[user.username][day]" />-->
-<!--      &lt;!&ndash;          {{ day }}&ndash;&gt;-->
-<!--      </span>-->
-<!--    </li>-->
-<!--  </ul>-->
 </div>
-

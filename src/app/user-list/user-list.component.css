@@ -14,3 +14,31 @@
 .table th:first-child, .table td:first-child {
   text-align: left;
 }
+.container {
+  max-width: 100%;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.thead-dark th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin: 5px;
+}
