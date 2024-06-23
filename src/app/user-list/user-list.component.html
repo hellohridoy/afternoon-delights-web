@@ -10,19 +10,24 @@
       <tbody>
       <tr>
         <td>Description</td>
-        <td *ngFor="let item of items">{{ item.description }}</td>
+        <td *ngFor="let item of items">
+          <input [(ngModel)]="item.description" class="form-control" />
+        </td>
       </tr>
       <tr>
         <td>Amount</td>
-        <td *ngFor="let item of items">{{ item.amount }}</td>
+        <td *ngFor="let item of items">
+          <input [(ngModel)]="item.amount" type="number" class="form-control" />
+        </td>
       </tr>
       <tr *ngFor="let user of users">
         <td>{{ user.username }}</td>
         <td *ngFor="let day of daysInMonth">
-          <input type="checkbox">
+          <input type="checkbox"  />
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
