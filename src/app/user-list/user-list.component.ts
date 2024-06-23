@@ -45,10 +45,21 @@ export class UserListComponent implements OnInit {
     { date: 'May 30', description: '', amount: 0.0, flag1: false, },
     { date: 'May 31', description: '', amount: 0.0, flag1: false,  }
   ];
+
+  daysInMonth: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+  userCheckboxes: any = [];
+
+
+  item:  any[] = [
+    { id: 1, amount: 100, checkboxes: Array(31).fill(false) },
+    { id: 2, amount: 200, checkboxes: Array(31).fill(false) },
+    // Add more items as needed
+  ];
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadUsers();
+    this.initializeCheckboxes();
   }
 
   loadUsers() {
@@ -61,5 +72,14 @@ export class UserListComponent implements OnInit {
         // Handle error, e.g., show error message
       }
     );
+  }
+
+  initializeCheckboxes(): void {
+    this.users.forEach(user => {
+      this.userCheckboxes[user.username] = {};
+      this.daysInMonth.forEach(day => {
+        this.userCheckboxes[user.username][day] = false;
+      });
+    });
   }
 }

@@ -19,9 +19,12 @@
         <td>Amount</td>
         <td *ngFor="let item of items">{{ item.amount }}</td>
       </tr>
-      <tr>
-        <td>Flag 1</td>
-        <td *ngFor="let item of items">{{ item.flag1 }}</td>
+      <tr  *ngFor="let user of users">{{ user.username }}
+        <td *ngFor="let day of daysInMonth">
+          <input
+            type="checkbox"
+          >
+        </td>
       </tr>
       </tbody>
     </table>
@@ -30,13 +33,16 @@
 
 
 
-  <h2>User List</h2>
-  <ul>
-    <li *ngFor="let user of users">
-<!--      <strong>ID:</strong> {{ user.id }}<br>-->
-      <strong>Username:</strong> {{ user.username }}<br>
-<!--      <strong>Role:</strong> {{ user.role }}<br>-->
-    </li>
-  </ul>
+<!--  <h2>User List</h2>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let user of users">-->
+<!--      {{ user.username }}-->
+
+<!--      <span *ngFor="let day of daysInMonth">-->
+<!--                <input type="checkbox"  [(ngModel)]="userCheckboxes[user.username][day]" />-->
+<!--      &lt;!&ndash;          {{ day }}&ndash;&gt;-->
+<!--      </span>-->
+<!--    </li>-->
+<!--  </ul>-->
 </div>
 
