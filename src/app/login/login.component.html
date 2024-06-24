@@ -1,20 +1,21 @@
-<div>
-  <h2>Login</h2>
-  <form (ngSubmit)="onSubmit()">
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" [(ngModel)]="loginForm.username" required>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" [(ngModel)]="loginForm.password" required>
-    </div>
-    <button type="submit">Login</button>
-  </form>
+<div class="login-page">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="loginForm.username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="loginForm.password" required>
+      </div>
+      <button type="submit" class="login-button">Login</button>
+    </form>
 
-  <!-- Conditionally show the profile link after successful login -->
-  <div *ngIf="isLoggedIn">
-    <a [routerLink]="['/profile']" [queryParams]="{ username: loginForm.username }">Go to Profile</a>
+    <!-- Conditionally show the profile link after successful login -->
+    <div *ngIf="isLoggedIn" class="profile-link">
+      <a [routerLink]="['/profile']" [queryParams]="{ username: loginForm.username }">Go to Profile</a>
+    </div>
   </div>
-
 </div>

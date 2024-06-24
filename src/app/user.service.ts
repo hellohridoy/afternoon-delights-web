@@ -10,6 +10,7 @@ import {User} from "./User";
 export class UserService {
 
   private baseUrl = 'http://localhost:8080/api/users';
+  private baseUrlForMember = 'http://localhost:8080/afternoon-delights/member';
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +34,11 @@ export class UserService {
     return this.http.post<any>(`${this.baseUrl}/profile/addMoney`, null, {
       params: { username, amount: amount.toString() }
     });
+  }
+
+
+  addNewMember(newMember:any):Observable<any>{
+    return this.http.post(`${this.baseUrlForMember}/add-members`,newMember);
   }
 
 }

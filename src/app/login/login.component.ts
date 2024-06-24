@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,8 +27,14 @@ export class LoginComponent {
     this.userService.login(this.loginForm).subscribe(
       (response) => {
         console.log('Login successful:', response);
-        console.log('Navigating to profile page for user:', this.loginForm.username);
-        this.isLoggedIn = true;      },
+        Swal.fire({
+          title: 'Success!',
+          text: 'Login successfully',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
+        this.router.navigate(['/dashboard']);
+        },
       (error) => {
         console.error('Login failed:', error);
       }

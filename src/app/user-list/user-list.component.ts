@@ -11,6 +11,7 @@ import {Item} from "../Item"; // Import the User interface or model
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  checked:boolean=false;
   users: User[] = [];
   items: Item[] = [
     { date: 'May 1', description: '', amount: 0.0, flag1: false,  },
@@ -81,5 +82,9 @@ export class UserListComponent implements OnInit {
         this.userCheckboxes[user.username][day] = false;
       });
     });
+  }
+
+  chaeckBoxChange():void{
+    this.checked = true;
   }
 }

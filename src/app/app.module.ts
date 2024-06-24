@@ -9,6 +9,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserListComponent } from './user-list/user-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddMemberComponent } from './add-member/add-member.component';
+import { BalanceComponent } from './balance/balance.component';
+import { MealComponent } from './meal/meal.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     LoginComponent,
     RegistrationComponent,
     UserListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    NavbarComponent,
+    DashboardComponent,
+    AddMemberComponent,
+    BalanceComponent,
+    MealComponent
   ],
     imports: [
         BrowserModule,

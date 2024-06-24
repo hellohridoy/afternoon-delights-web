@@ -23,7 +23,7 @@
       <tr *ngFor="let user of users">
         <td>{{ user.username }}</td>
         <td *ngFor="let day of daysInMonth">
-          <input type="checkbox"  />
+          <input type="checkbox" (change)="chaeckBoxChange()" [(ngModel)] = checked />
         </td>
       </tr>
       </tbody>

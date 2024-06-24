@@ -18,7 +18,7 @@ export class RegistrationComponent {
     this.userService.register(this.registrationForm).subscribe(
       (response) => {
         console.log('Registration successful:', response);
-        // Optionally navigate to another page or handle success
+
       },
       (error) => {
         console.error('Registration failed:', error);
