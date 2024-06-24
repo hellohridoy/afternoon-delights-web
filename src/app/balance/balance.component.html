@@ -1,1 +1,40 @@
-<p>balance works!</p>
+<div class="member-form">
+  <form [formGroup]="balancedForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="item">Item:</label>
+      <input id="item" formControlName="item" type="text" />
+      <div *ngIf="balancedForm.get('item')?.invalid && balancedForm.get('item')?.touched">
+        <small *ngIf="balancedForm.get('item')?.hasError('required')">Item is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="participants">Participants:</label>
+      <input id="participants" formControlName="participants" type="text" />
+      <div *ngIf="balancedForm.get('participants')?.invalid && balancedForm.get('participants')?.touched">
+        <small *ngIf="balancedForm.get('participants')?.hasError('required')">Participants are required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input id="price" formControlName="price" type="number" />
+      <div *ngIf="balancedForm.get('price')?.invalid && balancedForm.get('price')?.touched">
+        <small *ngIf="balancedForm.get('price')?.hasError('required')">Price is required.</small>
+        <small *ngIf="balancedForm.get('price')?.hasError('min')">Price must be a positive number.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="perHeadAmount">Per Head Amount:</label>
+      <input id="perHeadAmount" formControlName="perHeadAmount" type="number" />
+      <div *ngIf="balancedForm.get('perHeadAmount')?.invalid && balancedForm.get('perHeadAmount')?.touched">
+        <small *ngIf="balancedForm.get('perHeadAmount')?.hasError('required')">Per Head Amount is required.</small>
+        <small *ngIf="balancedForm.get('perHeadAmount')?.hasError('min')">Amount must be a positive number.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="balancedForm.invalid">Submit</button>
+  </form>
+</div>
+
