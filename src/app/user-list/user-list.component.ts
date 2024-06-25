@@ -10,6 +10,7 @@ import {Item} from "../Item"; // Import the User interface or model
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
+
 export class UserListComponent implements OnInit {
   checked:boolean=false;
   users: User[] = [];
@@ -47,26 +48,36 @@ export class UserListComponent implements OnInit {
     { date: 'May 31', description: '', amount: 0.0, flag1: false,  }
   ];
 
-  daysInMonth: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
-  userCheckboxes: any = [];
-
-
-  item:  any[] = [
-    { id: 1, amount: 100, checkboxes: Array(31).fill(false) },
-    { id: 2, amount: 200, checkboxes: Array(31).fill(false) },
-    // Add more items as needed
+  daysInMonth: string[] = [
+    'May 1', 'May 2', 'May 3', 'May 4', 'May 5', 'May 6', 'May 7', 'May 8',
+    'May 9', 'May 10', 'May 11', 'May 12', 'May 13', 'May 14', 'May 15',
+    'May 16', 'May 17', 'May 18', 'May 19', 'May 20', 'May 21', 'May 22',
+    'May 23', 'May 24', 'May 25', 'May 26', 'May 27', 'May 28', 'May 29',
+    'May 30', 'May 31'
   ];
-  constructor(private userService: UserService) { }
+
+  displayedDates: string[] = [];
+  displayedItems: Item[] = [];
+  currentStartIndex: number = 0;
+  itemsPerPage: number = 7;
+  userCheckboxes: any = {};
+  isPreviousDisabled: boolean = true;
+  isNextDisabled: boolean = false;
+
+
+
+  constructor(private userService: UserService,) { }
 
   ngOnInit(): void {
     this.loadUsers();
-    this.initializeCheckboxes();
+    this.updateDisplayedData();
   }
 
   loadUsers() {
     this.userService.getAllUsers().subscribe(
       (data) => {
         this.users = data;
+        this.initializeCheckboxes();
       },
       (error) => {
         console.error('Error fetching users:', error);
@@ -84,7 +95,28 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  chaeckBoxChange():void{
+  updateDisplayedData() {
+    this.displayedDates = this.daysInMonth.slice(this.currentStartIndex, this.currentStartIndex + this.itemsPerPage);
+    this.displayedItems = this.items.slice(this.currentStartIndex, this.currentStartIndex + this.itemsPerPage);
+    this.isPreviousDisabled = this.currentStartIndex === 0;
+    this.isNextDisabled = this.currentStartIndex + this.itemsPerPage >= this.daysInMonth.length;
+  }
+
+  showPrevious() {
+    if (this.currentStartIndex - this.itemsPerPage >= 0) {
+      this.currentStartIndex -= this.itemsPerPage;
+      this.updateDisplayedData();
+    }
+  }
+
+  showNext() {
+    if (this.currentStartIndex + this.itemsPerPage < this.daysInMonth.length) {
+      this.currentStartIndex += this.itemsPerPage;
+      this.updateDisplayedData();
+    }
+  }
+
+  checkBoxChange() {
     this.checked = true;
   }
 }

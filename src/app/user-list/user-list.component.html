@@ -1,33 +1,36 @@
 <div class="container mt-4">
+  <div class="d-flex justify-content-end mb-2">
+    <button class="btn btn-primary me-2" (click)="showPrevious()" [disabled]="isPreviousDisabled">Previous 7 Days</button>
+    <button class="btn btn-primary" (click)="showNext()" [disabled]="isNextDisabled">Next 7 Days</button>
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
       <tr>
         <th>Dates</th>
-        <th *ngFor="let item of items">{{ item.date }}</th>
+        <th *ngFor="let date of displayedDates">{{ date }}</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>Description</td>
-        <td *ngFor="let item of items">
+        <td *ngFor="let item of displayedItems">
           <input [(ngModel)]="item.description" class="form-control" />
         </td>
       </tr>
       <tr>
         <td>Amount</td>
-        <td *ngFor="let item of items">
+        <td *ngFor="let item of displayedItems">
           <input [(ngModel)]="item.amount" type="number" class="form-control" />
         </td>
       </tr>
       <tr *ngFor="let user of users">
         <td>{{ user.username }}</td>
-        <td *ngFor="let day of daysInMonth">
-          <input type="checkbox" (change)="chaeckBoxChange()" [(ngModel)] = checked />
+        <td *ngFor="let date of displayedDates">
+          <input type="checkbox" (change)="checkBoxChange()" [(ngModel)]="userCheckboxes[user.username][date]" />
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-
