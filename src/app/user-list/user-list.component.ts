@@ -1,51 +1,49 @@
-// user-list.component.ts
-
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from './../User';
-import {Item} from "../Item"; // Import the User interface or model
+import { Item } from '../Item'; // Import the Item interface or model
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-
 export class UserListComponent implements OnInit {
-  checked:boolean=false;
+  form: FormGroup | undefined;
   users: User[] = [];
   items: Item[] = [
-    { date: 'May 1', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 2', description: '', amount: 0.0, flag1: true,},
-    { date: 'May 3', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 4', description: '', amount: 0.0, flag1: false,},
-    { date: 'May 5', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 6', description: '', amount: 0.0, flag1: true,},
-    { date: 'May 7', description: '', amount: 0.0, flag1: false, },
-    { date: 'May 8', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 9', description: '', amount: 0.0, flag1: true,},
-    { date: 'May 10', description: '', amount: 0.0, flag1: false, },
-    { date: 'May 11', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 12', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 13', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 14', description: '', amount:0.0, flag1: false,  },
-    { date: 'May 15', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 16', description: '', amount: 0.0, flag1: true,  },
-    { date: 'May 17', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 18', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 19', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 20', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 21', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 22', description: '', amount: 0.0, flag1: false, },
-    { date: 'May 23', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 24', description: '', amount: 0.0, flag1: false, },
-    { date: 'May 25', description: '', amount: 0.0, flag1: false,  },
-    { date: 'May 26', description: '', amount: 0.0, flag1: true,  },
-    { date: 'May 27', description: '', amount: 0.0, flag1: true,},
-    { date: 'May 28', description: '', amount: 0.0, flag1: true, },
-    { date: 'May 29', description: '', amount: 0, flag1: true, },
-    { date: 'May 30', description: '', amount: 0.0, flag1: false, },
-    { date: 'May 31', description: '', amount: 0.0, flag1: false,  }
+    { date: 'May 1', description: '', amount: 0.0, flag1: false },
+    { date: 'May 2', description: '', amount: 0.0, flag1: true },
+    { date: 'May 3', description: '', amount: 0.0, flag1: false },
+    { date: 'May 4', description: '', amount: 0.0, flag1: false },
+    { date: 'May 5', description: '', amount: 0.0, flag1: true },
+    { date: 'May 6', description: '', amount: 0.0, flag1: true },
+    { date: 'May 7', description: '', amount: 0.0, flag1: false },
+    { date: 'May 8', description: '', amount: 0.0, flag1: false },
+    { date: 'May 9', description: '', amount: 0.0, flag1: true },
+    { date: 'May 10', description: '', amount: 0.0, flag1: false },
+    { date: 'May 11', description: '', amount: 0.0, flag1: false },
+    { date: 'May 12', description: '', amount: 0.0, flag1: true },
+    { date: 'May 13', description: '', amount: 0.0, flag1: true },
+    { date: 'May 14', description: '', amount: 0.0, flag1: false },
+    { date: 'May 15', description: '', amount: 0.0, flag1: true },
+    { date: 'May 16', description: '', amount: 0.0, flag1: true },
+    { date: 'May 17', description: '', amount: 0.0, flag1: false },
+    { date: 'May 18', description: '', amount: 0.0, flag1: false },
+    { date: 'May 19', description: '', amount: 0.0, flag1: true },
+    { date: 'May 20', description: '', amount: 0.0, flag1: true },
+    { date: 'May 21', description: '', amount: 0.0, flag1: true },
+    { date: 'May 22', description: '', amount: 0.0, flag1: false },
+    { date: 'May 23', description: '', amount: 0.0, flag1: true },
+    { date: 'May 24', description: '', amount: 0.0, flag1: false },
+    { date: 'May 25', description: '', amount: 0.0, flag1: false },
+    { date: 'May 26', description: '', amount: 0.0, flag1: true },
+    { date: 'May 27', description: '', amount: 0.0, flag1: true },
+    { date: 'May 28', description: '', amount: 0.0, flag1: true },
+    { date: 'May 29', description: '', amount: 0, flag1: true },
+    { date: 'May 30', description: '', amount: 0.0, flag1: false },
+    { date: 'May 31', description: '', amount: 0.0, flag1: false }
   ];
 
   daysInMonth: string[] = [
@@ -60,15 +58,17 @@ export class UserListComponent implements OnInit {
   displayedItems: Item[] = [];
   currentStartIndex: number = 0;
   itemsPerPage: number = 7;
-  userCheckboxes: any = {};
   isPreviousDisabled: boolean = true;
   isNextDisabled: boolean = false;
+  private checked: boolean | undefined;
 
-
-
-  constructor(private userService: UserService,) { }
+  constructor(private userService: UserService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      displayedItems: this.fb.array([]),
+      userCheckboxes: this.fb.group({})
+    });
     this.loadUsers();
     this.updateDisplayedData();
   }
@@ -81,23 +81,34 @@ export class UserListComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching users:', error);
-        // Handle error, e.g., show error message
       }
     );
   }
 
   initializeCheckboxes(): void {
+    // @ts-ignore
+    const userCheckboxesGroup = this.form.get('userCheckboxes') as FormGroup;
     this.users.forEach(user => {
-      this.userCheckboxes[user.username] = {};
+      const userGroup = this.fb.group({});
       this.daysInMonth.forEach(day => {
-        this.userCheckboxes[user.username][day] = false;
+        userGroup.addControl(day, new FormControl(false));
       });
+      userCheckboxesGroup.addControl(user.username, userGroup);
     });
   }
 
   updateDisplayedData() {
+    // @ts-ignore
+    const displayedItemsArray = this.form.get('displayedItems') as FormArray;
+    displayedItemsArray.clear();
     this.displayedDates = this.daysInMonth.slice(this.currentStartIndex, this.currentStartIndex + this.itemsPerPage);
     this.displayedItems = this.items.slice(this.currentStartIndex, this.currentStartIndex + this.itemsPerPage);
+    this.displayedItems.forEach(item => {
+      displayedItemsArray.push(this.fb.group({
+        description: [item.description],
+        amount: [item.amount]
+      }));
+    });
     this.isPreviousDisabled = this.currentStartIndex === 0;
     this.isNextDisabled = this.currentStartIndex + this.itemsPerPage >= this.daysInMonth.length;
   }
