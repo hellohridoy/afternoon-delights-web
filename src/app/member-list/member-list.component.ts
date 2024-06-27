@@ -10,6 +10,7 @@ import {Member} from "../Member"; // Import the User interface or model
 })
 export class MemberListComponent implements OnInit{
   member: Member[] = [];
+
   ngOnInit(): void {
     this.loadUsers();
   }
@@ -19,6 +20,7 @@ constructor(private memberListServices:MemberListService) {
     this.memberListServices.getAllUsers().subscribe(
       (data) => {
         this.member = data;
+        console.log(this.member)
 
       },
       (error) => {

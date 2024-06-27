@@ -28,11 +28,11 @@
     </div>
 
     <div class="form-group">
-      <label for="officialPhone">Official Phone:</label>
-      <input id="officialPhone" formControlName="officialPhone" type="text" />
-      <div *ngIf="addNewMemberForm.get('officialPhone')?.invalid && addNewMemberForm.get('officialPhone')?.touched">
-        <small *ngIf="addNewMemberForm.get('officialPhone')?.hasError('required')">Official phone is required.</small>
-        <small *ngIf="addNewMemberForm.get('officialPhone')?.hasError('pattern')">Phone number must be numeric.</small>
+      <label for="officialPhoneNumber">Official Phone:</label>
+      <input id="officialPhoneNumber" formControlName="officialPhoneNumber" type="text" />
+      <div *ngIf="addNewMemberForm.get('officialPhoneNumber')?.invalid && addNewMemberForm.get('officialPhoneNumber')?.touched">
+        <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('required')">Official phone is required.</small>
+        <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('pattern')">Phone number must be numeric.</small>
       </div>
     </div>
 
