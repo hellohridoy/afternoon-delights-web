@@ -20,7 +20,7 @@ export class AddMemberComponent implements OnInit{
       pin: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      officialPhone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      officialPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       designation: ['', Validators.required],
       departments: ['', Validators.required],
       unit: ['', Validators.required],
@@ -28,7 +28,7 @@ export class AddMemberComponent implements OnInit{
   }
 
   onSubmit(): void {
-
+    console.log(this.addNewMemberForm.value)
     if (this.addNewMemberForm.valid) {
       this.userService.addNewMember(this.addNewMemberForm.value).subscribe(response => {
         Swal.fire({

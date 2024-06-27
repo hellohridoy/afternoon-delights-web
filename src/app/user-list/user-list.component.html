@@ -4,35 +4,27 @@
     <button class="btn btn-primary" (click)="showNext()" [disabled]="isNextDisabled">Next 7 Days</button>
   </div>
   <div class="table-responsive">
-    <form [formGroup]="form">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-        <tr>
-          <th>Dates</th>
-          <th *ngFor="let date of displayedDates">{{ date }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>Description</td>
-          <td *ngFor="let item of displayedItems.controls; let i = index">
-            <input formControlName="description" class="form-control" />
-          </td>
-        </tr>
-        <tr>
-          <td>Amount</td>
-          <td *ngFor="let item of displayedItems.controls; let i = index">
-            <input formControlName="amount" type="number" class="form-control" />
-          </td>
-        </tr>
-        <tr *ngFor="let user of users">
-          <td>{{ user.username }}</td>
-          <td *ngFor="let date of displayedDates">
-            <input type="checkbox" (change)="checkBoxChange()" [formControlName]="date" />
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </form>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Dates</th>
+        <th *ngFor="let date of displayedDates">{{ date }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Description</td>
+        <td *ngFor="let item of displayedItems">
+          <input [(ngModel)]="item.description" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Amount</td>
+        <td *ngFor="let item of displayedItems">
+          <input [(ngModel)]="item.amount" type="number" class="form-control" />
+        </td>
+      </tr>
+
+    </table>
   </div>
 </div>

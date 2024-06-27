@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { BalanceComponent } from './balance/balance.component';
 import { MealComponent } from './meal/meal.component';
+import { MemberListComponent } from './member-list/member-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MealComponent } from './meal/meal.component';
     DashboardComponent,
     AddMemberComponent,
     BalanceComponent,
-    MealComponent
+    MealComponent,
+    MemberListComponent
   ],
     imports: [
         BrowserModule,

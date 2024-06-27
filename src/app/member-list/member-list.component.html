@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>PIN</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Official Phone Number</th>
+        <th>Designation</th>
+        <th>Departments</th>
+        <th>Unit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let member of member">
+        <td>{{ member.id }}</td>
+        <td>{{ member.pin }}</td>
+        <td>{{ member.name }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.officialPhoneNumber  }}</td>
+        <td>{{ member.designation }}</td>
+        <td>{{ member.departments }}</td>
+        <td>{{ member.unit }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

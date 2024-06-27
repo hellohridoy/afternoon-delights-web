@@ -8,6 +8,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AddMemberComponent} from "./add-member/add-member.component";
 import {BalanceComponent} from "./balance/balance.component";
 import {MealComponent} from "./meal/meal.component";
+import {MemberListComponent} from "./member-list/member-list.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'add-member', component: AddMemberComponent },
   { path: 'balance', component: BalanceComponent },
   { path: 'meal', component: MealComponent },
+  { path: 'member-list', component: MemberListComponent },
 
 ];
 
