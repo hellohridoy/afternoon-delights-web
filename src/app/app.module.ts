@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -15,7 +15,7 @@ import { AddMemberComponent } from './add-member/add-member.component';
 import { BalanceComponent } from './balance/balance.component';
 import { MealComponent } from './meal/meal.component';
 import { MemberListComponent } from './member-list/member-list.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +35,11 @@ import { MemberListComponent } from './member-list/member-list.component';
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+      NgMultiSelectDropDownModule.forRoot()
     ],
   providers: [],
+  schemas: [NO_ERRORS_SCHEMA], // Add NO_ERRORS_SCHEMA here
   bootstrap: [AppComponent]
 })
 export class AppModule { }

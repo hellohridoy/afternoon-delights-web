@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../user.service";
 import Swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-member',
@@ -11,7 +12,7 @@ import Swal from "sweetalert2";
 export class AddMemberComponent implements OnInit{
   addNewMemberForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private userService:UserService) {
+  constructor(private fb: FormBuilder,private userService:UserService,private router:Router) {
     this.addNewMemberForm = this.fb.group({});
   }
 
@@ -38,6 +39,7 @@ export class AddMemberComponent implements OnInit{
           confirmButtonText: 'Ok'
         })
         console.log("Member added successfully")
+        this.router.navigate(['/member-list']);
       });
     } else {
       console.log("Error")

@@ -24,7 +24,13 @@
           <input [(ngModel)]="item.amount" type="number" class="form-control" />
         </td>
       </tr>
-
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td *ngFor="let date of displayedDates">
+          <input type="checkbox" (change)="checkBoxChange()" [(ngModel)]="userCheckboxes[user.username][date]" />
+        </td>
+      </tr>
+      </tbody>
     </table>
   </div>
 </div>

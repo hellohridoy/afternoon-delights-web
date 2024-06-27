@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Component, OnInit } from '@angular/core';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
   styleUrls: ['./meal.component.css']
 })
 export class MealComponent {
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
   balanceForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
