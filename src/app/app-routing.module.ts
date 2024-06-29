@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-member', component: AddMemberComponent },
-  { path: 'balance', component: BalanceComponent },
-  { path: 'meal', component: MealComponent },
+  { path: 'meal', component: BalanceComponent },
+  { path: 'balance', component: MealComponent },
   { path: 'member-list', component: MemberListComponent },
 
 ];
