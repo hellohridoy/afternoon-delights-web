@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Member} from "../Member";
 
 
 @Injectable({
@@ -19,14 +18,6 @@ export class MemberListService {
 
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrlForMember}/all`);
-  }
-
-  deleteMember(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrlForMember}/delete/${id}`);
-  }
-
-  updateMember(member: any):Observable<any>{
-    return this.http.put(`${this.baseUrlForMember}/${member.id}`, member)
   }
 
 

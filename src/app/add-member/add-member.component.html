@@ -1,83 +1,64 @@
-<div class="member-form container mt-5 p-5 border">
-  <form [formGroup]="addNewMemberForm" (ngSubmit)="onSubmit()" class="row">
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="pin" class="form-label me-2">PIN:</label>
-        <input id="pin" formControlName="pin" type="text" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('pin')?.invalid && addNewMemberForm.get('pin')?.touched">
-          <small *ngIf="addNewMemberForm.get('pin')?.hasError('required')">PIN is required.</small>
-          <small *ngIf="addNewMemberForm.get('pin')?.hasError('minlength')">PIN must be at least 4 digits.</small>
-          <small *ngIf="addNewMemberForm.get('pin')?.hasError('maxlength')">PIN cannot exceed 6 digits.</small>
-        </div>
+<div class="member-form">
+  <form [formGroup]="addNewMemberForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="pin">PIN:</label>
+      <input id="pin" formControlName="pin" type="text" />
+      <div *ngIf="addNewMemberForm.get('pin')?.invalid && addNewMemberForm.get('pin')?.touched">
+        <small *ngIf="addNewMemberForm.get('pin')?.hasError('required')">PIN is required.</small>
+        <small *ngIf="addNewMemberForm.get('pin')?.hasError('minlength')">PIN must be at least 4 digits.</small>
+        <small *ngIf="addNewMemberForm.get('pin')?.hasError('maxlength')">PIN cannot exceed 6 digits.</small>
       </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="name" class="form-label me-2">Name:</label>
-        <input id="name" formControlName="name" type="text" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('name')?.invalid && addNewMemberForm.get('name')?.touched">
-          <small *ngIf="addNewMemberForm.get('name')?.hasError('required')">Name is required.</small>
-        </div>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" type="text" />
+      <div *ngIf="addNewMemberForm.get('name')?.invalid && addNewMemberForm.get('name')?.touched">
+        <small *ngIf="addNewMemberForm.get('name')?.hasError('required')">Name is required.</small>
       </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="email" class="form-label me-2">Email:</label>
-        <input id="email" formControlName="email" type="email" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('email')?.invalid && addNewMemberForm.get('email')?.touched">
-          <small *ngIf="addNewMemberForm.get('email')?.hasError('required')">Email is required.</small>
-          <small *ngIf="addNewMemberForm.get('email')?.hasError('email')">Invalid email format.</small>
-        </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" />
+      <div *ngIf="addNewMemberForm.get('email')?.invalid && addNewMemberForm.get('email')?.touched">
+        <small *ngIf="addNewMemberForm.get('email')?.hasError('required')">Email is required.</small>
+        <small *ngIf="addNewMemberForm.get('email')?.hasError('email')">Invalid email format.</small>
       </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="officialPhoneNumber" class="form-label me-2">Official Phone:</label>
-        <input id="officialPhoneNumber" formControlName="officialPhoneNumber" type="text" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('officialPhoneNumber')?.invalid && addNewMemberForm.get('officialPhoneNumber')?.touched">
-          <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('required')">Official phone is required.</small>
-          <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('pattern')">Phone number must be numeric.</small>
-        </div>
+    <div class="form-group">
+      <label for="officialPhoneNumber">Official Phone:</label>
+      <input id="officialPhoneNumber" formControlName="officialPhoneNumber" type="text" />
+      <div *ngIf="addNewMemberForm.get('officialPhoneNumber')?.invalid && addNewMemberForm.get('officialPhoneNumber')?.touched">
+        <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('required')">Official phone is required.</small>
+        <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('pattern')">Phone number must be numeric.</small>
       </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="designation" class="form-label me-2">Designation:</label>
-        <input id="designation" formControlName="designation" type="text" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('designation')?.invalid && addNewMemberForm.get('designation')?.touched">
-          <small *ngIf="addNewMemberForm.get('designation')?.hasError('required')">Designation is required.</small>
-        </div>
+    <div class="form-group">
+      <label for="designation">Designation:</label>
+      <input id="designation" formControlName="designation" type="text" />
+      <div *ngIf="addNewMemberForm.get('designation')?.invalid && addNewMemberForm.get('designation')?.touched">
+        <small *ngIf="addNewMemberForm.get('designation')?.hasError('required')">Designation is required.</small>
       </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="departments" class="form-label me-2">Departments:</label>
-        <input id="departments" formControlName="departments" type="text" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('departments')?.invalid && addNewMemberForm.get('departments')?.touched">
-          <small *ngIf="addNewMemberForm.get('departments')?.hasError('required')">Departments are required.</small>
-        </div>
+    <div class="form-group">
+      <label for="departments">Departments:</label>
+      <input id="departments" formControlName="departments" type="text" />
+      <div *ngIf="addNewMemberForm.get('departments')?.invalid && addNewMemberForm.get('departments')?.touched">
+        <small *ngIf="addNewMemberForm.get('departments')?.hasError('required')">Departments are required.</small>
       </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <div class="form-group">
-        <label for="unit" class="form-label me-2">Unit:</label>
-        <input id="unit" formControlName="unit" type="text" class="form-control form-control-sm" />
-        <div *ngIf="addNewMemberForm.get('unit')?.invalid && addNewMemberForm.get('unit')?.touched">
-          <small *ngIf="addNewMemberForm.get('unit')?.hasError('required')">Unit is required.</small>
-        </div>
+    <div class="form-group">
+      <label for="unit">Unit:</label>
+      <input id="unit" formControlName="unit" type="text" />
+      <div *ngIf="addNewMemberForm.get('unit')?.invalid && addNewMemberForm.get('unit')?.touched">
+        <small *ngIf="addNewMemberForm.get('unit')?.hasError('required')">Unit is required.</small>
       </div>
     </div>
-
-
-
-    <div class="col-md-12">
-      <button type="submit" class="btn btn-primary btn-sm" [disabled]="addNewMemberForm.invalid">Save</button>
-    </div>
+    <button type="submit" [disabled]="addNewMemberForm.invalid">Submit</button>
   </form>
 </div>
