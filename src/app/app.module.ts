@@ -16,6 +16,10 @@ import { BalanceComponent } from './balance/balance.component';
 import { MealComponent } from './meal/meal.component';
 import { MemberListComponent } from './member-list/member-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UpdateMemberModalComponent } from './update-member-modal/update-member-modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatInputModule} from "@angular/material/input";
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,16 +32,20 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     AddMemberComponent,
     BalanceComponent,
     MealComponent,
-    MemberListComponent
+    MemberListComponent,
+    UpdateMemberModalComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-      NgMultiSelectDropDownModule.forRoot()
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatInputModule
+  ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA], // Add NO_ERRORS_SCHEMA here
   bootstrap: [AppComponent]

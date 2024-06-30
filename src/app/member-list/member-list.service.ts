@@ -20,6 +20,12 @@ export class MemberListService {
     return this.http.get<any[]>(`${this.baseUrlForMember}/all`);
   }
 
+  deleteMember(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrlForMember}/delete/${id}`);
+  }
 
+  updateMember(member: any):Observable<any>{
+    return this.http.put(`${this.baseUrlForMember}/${member.id}`, member)
+  }
 
 }

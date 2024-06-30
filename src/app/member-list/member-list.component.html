@@ -11,6 +11,7 @@
         <th>Designation</th>
         <th>Departments</th>
         <th>Unit</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -23,6 +24,10 @@
         <td>{{ member.designation }}</td>
         <td>{{ member.departments }}</td>
         <td>{{ member.unit }}</td>
+        <td>
+          <button type="button" (click)="openUpdateMemberModal(member)" class="btn btn-primary btn-sm me-2">Update</button>
+          <button type="button" (click)="deleteMember(member.id)" class="btn btn-danger btn-sm">Delete</button>
+        </td>
       </tr>
       </tbody>
     </table>
