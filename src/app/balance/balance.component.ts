@@ -1,45 +1,43 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import {MealService} from "./meal.service";
+import { BalanceService } from './balance.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.component.html',
   styleUrls: ['./balance.component.css']
 })
-export class BalanceComponent implements OnInit{
+export class BalanceComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings: IDropdownSettings = {};
   balancedForm: FormGroup;
-  constructor(private fb:FormBuilder,private dropdownService: MealService) {
+
+  constructor(private fb: FormBuilder, private balanceService: BalanceService, private router: Router) {
     this.balancedForm = this.fb.group({});
   }
+
   ngOnInit(): void {
     this.balancedForm = this.fb.group({
       item: ['', Validators.required],
-      participants: ['', Validators.required],
+      participants: [[], Validators.required],  // Form control for selected items
       price: [null, [Validators.required, Validators.min(0)]],
       perHeadAmount: [null, [Validators.required, Validators.min(0)]]
     });
 
-    this.dropdownService.getAllUsersPin().subscribe((data: any) => {
-      this.dropdownList = data.map((item: { id: any; name: any; }) => {
-        console.log(item)
-        return {item_id: item, item_text: item};
-      });
+    this.balanceService.getAllUsersPin().subscribe((data: any) => {
+      this.dropdownList = data.map((item: string) => ({
+        item_id: item,
+      }));
       console.log(this.dropdownList);
     });
 
-    // this.dropdownService.getAllUserPinSeletedItem().subscribe((data: any) => {
-    //   this.dropdownList = data.map((item: { id: any; name: any; }) => {
-    //     return {item_id: item.id, item_text: item.name};
-    //   });
-    // });
-
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'item_id',
+      idField: 'pin',
       textField: 'item_text',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -47,23 +45,34 @@ export class BalanceComponent implements OnInit{
       allowSearchFilter: true
     };
   }
+
   onItemSelect(item: any) {
-    console.log(item);
+    // @ts-ignore
+    this.selectedItems.push(item);
+    this.balancedForm.patchValue({
+      participants: this.selectedItems
+    });
   }
 
   onSelectAll(items: any) {
-    console.log(items);
+    this.selectedItems = items;
+    this.balancedForm.patchValue({
+      participants: this.selectedItems
+    });
   }
-
 
   onSubmit(): void {
     if (this.balancedForm.valid) {
-      console.log(this.balancedForm.value);
-      // Handle form submission
+      this.balanceService.addDailyMealInfo(this.balancedForm.value).subscribe(response => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Member Added successfully',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+        console.log('Member added successfully');
+        this.router.navigate(['/user-list']);
+      });
     }
   }
-
-
-
-
 }

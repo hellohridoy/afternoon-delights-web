@@ -7,10 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-export class MealService {
+export class BalanceService {
 
 
   private baseUrlForMember = 'http://localhost:8080/afternoon-delights/member';
+  private baseUrlForMemberMeal = 'http://localhost:8080/afternoon-delights/daily-meal';
 
   constructor(private http: HttpClient) { }
 
@@ -20,8 +21,8 @@ export class MealService {
     return this.http.get<any[]>(`${this.baseUrlForMember}/all-members-pins`);
   }
 
-  getAllUserPinSeletedItem():Observable<any>{
-    return this.http.get<any[]>(`${this.baseUrlForMember}'/selected'`);
+  addDailyMealInfo(dailyMealDetails:any):Observable<any>{
+    return this.http.post<any[]>(`${this.baseUrlForMemberMeal}/add-meal`,dailyMealDetails);
   }
 
 }

@@ -6,7 +6,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
   templateUrl: './meal.component.html',
   styleUrls: ['./meal.component.css']
 })
-export class MealComponent {
+export class MealComponent implements OnInit{
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
@@ -26,7 +26,7 @@ export class MealComponent {
   onSubmit(): void {
     if (this.balanceForm.valid) {
       console.log(this.balanceForm.value);
-      // Handle form submission
+
     }
   }
 }
