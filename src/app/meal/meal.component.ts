@@ -1,6 +1,10 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import {BalanceService} from "../balance/balance.service";
+import Swal from "sweetalert2";
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
@@ -12,7 +16,7 @@ export class MealComponent implements OnInit{
   dropdownSettings = {};
   balanceForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private balancedService:BalanceService,private router:Router) {
     this.balanceForm = this.fb.group({});
   }
 
@@ -25,8 +29,17 @@ export class MealComponent implements OnInit{
 
   onSubmit(): void {
     if (this.balanceForm.valid) {
-      console.log(this.balanceForm.value);
-
+      this.balancedService.addBalanced(this.balanceForm.value).subscribe(response => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Balance Added successfully',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+        console.log('Member added successfully');
+        this.router.navigate(['/dashboard']);
+      });
     }
   }
+
 }

@@ -1,5 +1,4 @@
 <div class="container border p-4 mt-4">
-  <!-- New form for balanced entry -->
   <form [formGroup]="balancedForm" (ngSubmit)="onSubmitBalanced()">
     <div class="row">
       <div class="col-md-3">
@@ -9,10 +8,10 @@
           <small *ngIf="balancedForm.get('item')?.hasError('required')">Item is required.</small>
         </div>
       </div>
-      <div class="col-md-3  text-center">
+      <div class="col-md-3 text-center">
         <label class="text-left">Participants:</label>
         <ng-multiselect-dropdown
-          [placeholder]="'Select Pin'"
+          [placeholder]="'Select Participants'"
           [data]="dropdownList"
           [(ngModel)]="selectedItems"
           [settings]="dropdownSettings"
