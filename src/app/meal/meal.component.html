@@ -1,24 +1,25 @@
-<div class="balance-form">
+<div class="container border p-4 mt-4">
   <form [formGroup]="balanceForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="pin">PIN:</label>
-      <input id="pin" formControlName="pin" type="text" />
-      <div *ngIf="balanceForm.get('pin')?.invalid && balanceForm.get('pin')?.touched">
-        <small *ngIf="balanceForm.get('pin')?.hasError('required')">PIN is required.</small>
-        <small *ngIf="balanceForm.get('pin')?.hasError('minlength')">PIN must be at least 4 digits.</small>
-        <small *ngIf="balanceForm.get('pin')?.hasError('maxlength')">PIN cannot exceed 6 digits.</small>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="pin">Pin:</label>
+        <input id="pin" formControlName="pin" type="text" class="form-control" />
+        <div *ngIf="balanceForm.get('pin')?.invalid && balanceForm.get('pin')?.touched">
+          <small *ngIf="balanceForm.get('pin')?.hasError('required')">PIN is required.</small>
+          <small *ngIf="balanceForm.get('pin')?.hasError('minlength')">PIN must be at least 4 digits.</small>
+          <small *ngIf="balanceForm.get('pin')?.hasError('maxlength')">PIN cannot exceed 6 digits.</small>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="balance">Balance:</label>
+        <input id="balance" formControlName="balance" type="number" class="form-control" />
+        <div *ngIf="balanceForm.get('balance')?.invalid && balanceForm.get('balance')?.touched">
+          <small *ngIf="balanceForm.get('balance')?.hasError('required')">Balance is required.</small>
+          <small *ngIf="balanceForm.get('balance')?.hasError('min')">Balance must be a positive number.</small>
+        </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <label for="balance">Balance:</label>
-      <input id="balance" formControlName="balance" type="number" />
-      <div *ngIf="balanceForm.get('balance')?.invalid && balanceForm.get('balance')?.touched">
-        <small *ngIf="balanceForm.get('balance')?.hasError('required')">Balance is required.</small>
-        <small *ngIf="balanceForm.get('balance')?.hasError('min')">Balance must be a positive number.</small>
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="balanceForm.invalid">Submit</button>
+    <button type="submit" [disabled]="balanceForm.invalid" class="btn btn-primary">Submit</button>
   </form>
 </div>

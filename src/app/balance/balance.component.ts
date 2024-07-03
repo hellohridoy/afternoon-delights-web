@@ -61,7 +61,7 @@ export class BalanceComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onSubmitBalanced(): void {
     if (this.balancedForm.valid) {
       this.balanceService.addDailyMealInfo(this.balancedForm.value).subscribe(response => {
         Swal.fire({
