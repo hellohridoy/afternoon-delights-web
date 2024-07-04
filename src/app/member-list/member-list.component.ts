@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberListService } from './member-list.service';
-import { User } from './../User';
-import {Item} from "../Item";
 import { MatDialog } from '@angular/material/dialog';
-
 import {Member} from "../Member";
-import * as sweetalert2 from "sweetalert2";
 import Swal from "sweetalert2";
 import {UpdateMemberModalComponent} from "../update-member-modal/update-member-modal.component"; // Import the User interface or model
 @Component({
