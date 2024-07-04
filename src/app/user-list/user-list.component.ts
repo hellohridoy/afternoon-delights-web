@@ -24,7 +24,6 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-    this.updateDisplayedData();
     this.loadFoodItems();
     this.loadMemberSelections();
   }
@@ -34,6 +33,7 @@ export class UserListComponent implements OnInit {
       (data) => {
         this.membersPin = data;
         this.initializeCheckboxes();
+        this.updateDisplayedData();
       },
       (error) => {
         console.error('Error fetching users:', error);
@@ -80,7 +80,7 @@ export class UserListComponent implements OnInit {
     const selected = this.userCheckboxes[pin][date];
     const memberSelection = { pin, date, selected };
 
-    this.listService.getMemberSelections()
+    this.http.post('http://localhost:8080/api/member-selections', memberSelection)
       .subscribe(response => {
         console.log('Selection saved:', response);
       }, error => {
