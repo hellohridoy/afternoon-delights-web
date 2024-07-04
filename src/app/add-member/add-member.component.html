@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="col-md-3 ">
-        <label for="officialPhoneNumber">Official Phone:</label>
+        <label for="officialPhoneNumber">Official Phone Number:</label>
         <input id="officialPhoneNumber" formControlName="officialPhoneNumber" type="text" class="form-control" />
         <div *ngIf="addNewMemberForm.get('officialPhoneNumber')?.invalid && addNewMemberForm.get('officialPhoneNumber')?.touched">
           <small *ngIf="addNewMemberForm.get('officialPhoneNumber')?.hasError('required')">Official phone is required.</small>

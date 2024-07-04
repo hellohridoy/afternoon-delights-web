@@ -1,11 +1,173 @@
-<div class="container mt-4">
-  <h2>Total Balance: {{ totalBalance }}</h2>
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container mt-4">
-  <h2>Total Cost of this Month : {{ 5000 }}</h2>
-</div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="container mt-4">
-  <h2> Balance Left : {{ totalBalance }}</h2>
+  <title>Admin Panel</title>
+</head>
+
+<body>
+<div class="side-menu">
+  <div class="brand-name ">
+    <h5  style="cursor: pointer" class="text-left">Afternoon Delights</h5>
+  </div>
+  <ul>
+    <li> <a class="nav-link" href="/dashboard" style="cursor: pointer">Dashboard</a></li>
+    <li><a class="nav-link" href="/login" style="cursor: pointer">Login</a> </li>
+    <li><a class="nav-link" href="/add-member" style="cursor: pointer">Add Member</a> </li>
+    <li><a class="nav-link" href="/balance" style="cursor: pointer">Balance</a> </li>
+    <li><a class="nav-link" href="/meal" style="cursor: pointer">Meal</a> </li>
+    <li><a class="nav-link" href="/member-list" style="cursor: pointer">Member List</a> </li>
+    <li><a class="nav-link" href="/list" style="cursor: pointer">List</a> </li>
+
+  </ul>
 </div>
+<div class="container">
+  <div class="header">
+    <div class="nav">
+      <div class="search">
+        <input type="text" placeholder="Search..">
+        <button type="submit"><img src="search.png" alt=""></button>
+      </div>
+      <div class="user">
+        <a href="#" class="btn">Add New</a>
+        <img src="notifications.png" alt="">
+        <div class="img-case">
+          <img src="user.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="cards">
+      <div class="card">
+        <div class="box">
+          <h1>{{totalBalance}}</h1>
+          <h3>Total Amount </h3>
+        </div>
+        <div class="icon-case">
+          <img src="students.png" alt="">
+        </div>
+      </div>
+      <div class="card">
+        <div class="box">
+          <h1>Due</h1>
+          <h3>2000</h3>
+        </div>
+        <div class="icon-case">
+          <img src="teachers.png" alt="">
+        </div>
+      </div>
+      <div class="card">
+        <div class="box">
+          <h1>36</h1>
+          <h3>Total Member</h3>
+        </div>
+        <div class="icon-case">
+          <img src="schools.png" alt="">
+        </div>
+      </div>
+      <div class="card">
+        <div class="box">
+          <h1>Cost/M</h1>
+          <h3>5000</h3>
+        </div>
+        <div class="icon-case">
+          <img src="income.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="content-2">
+      <div class="recent-payments">
+        <div class="title">
+          <h2>Recent Payments</h2>
+          <a href="#" class="btn">View All</a>
+        </div>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Amount</th>
+            <th>Option</th>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>Development</td>
+            <td>$120</td>
+            <td><a href="#" class="btn">View</a></td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>Development</td>
+            <td>$120</td>
+            <td><a href="#" class="btn">View</a></td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>Development</td>
+            <td>$120</td>
+            <td><a href="#" class="btn">View</a></td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>QA</td>
+            <td>$120</td>
+            <td><a href="#" class="btn">View</a></td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>BA</td>
+            <td>$120</td>
+            <td><a href="#" class="btn">View</a></td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>BA</td>
+            <td>$120</td>
+            <td><a href="#" class="btn">View</a></td>
+          </tr>
+        </table>
+      </div>
+      <div class="new-students">
+        <div class="title">
+          <h2>Members in Due</h2>
+          <a href="#" class="btn">View All</a>
+        </div>
+        <table>
+          <tr>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>option</th>
+          </tr>
+          <tr>
+            <td><img src="./favicon.ico.png" alt=""></td>
+            <td>John Steve Doe</td>
+            <td><img src="info.png" alt=""></td>
+          </tr>
+          <tr>
+            <td><img src="user.png" alt=""></td>
+            <td>John Steve Doe</td>
+            <td><img src="info.png" alt=""></td>
+          </tr>
+          <tr>
+            <td><img src="user.png" alt=""></td>
+            <td>John Steve Doe</td>
+            <td><img src="info.png" alt=""></td>
+          </tr>
+          <tr>
+            <td><img src="user.png" alt=""></td>
+            <td>John Steve Doe</td>
+            <td><img src="info.png" alt=""></td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
