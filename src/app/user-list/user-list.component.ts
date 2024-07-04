@@ -1,9 +1,12 @@
 // user-list.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { User } from './../User';
-import {Item} from "../Item"; // Import the User interface or model
+
+import { Member } from '../Member';
+import {Item} from "../Item";
+import {BalanceService} from "../balance/balance.service";
+import {HttpClient} from "@angular/common/http";
+import {ListService} from "./list.service"; // Import the User interface or model
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +16,7 @@ import {Item} from "../Item"; // Import the User interface or model
 
 export class UserListComponent implements OnInit {
   checked:boolean=false;
-  users: User[] = [];
+  membersPin: Member[] = [];
   items: Item[] = [
     { date: 'May 1', description: '', amount: 0.0, flag1: false,  },
     { date: 'May 2', description: '', amount: 0.0, flag1: true,},
@@ -60,23 +63,25 @@ export class UserListComponent implements OnInit {
   displayedItems: Item[] = [];
   currentStartIndex: number = 0;
   itemsPerPage: number = 7;
-  userCheckboxes: any = {};
+  userCheckboxes: { [pin: string]: { [date: string]: boolean } } = {}; // Populate with your data
   isPreviousDisabled: boolean = true;
   isNextDisabled: boolean = false;
 
 
 
-  constructor(private userService: UserService,) { }
+  constructor(private balanceService: BalanceService,private http: HttpClient,private listService:ListService) { }
 
   ngOnInit(): void {
     this.loadUsers();
     this.updateDisplayedData();
+    this.loadFoodItems();
+    this.loadMemberSelections();
   }
 
   loadUsers() {
-    this.userService.getAllUsers().subscribe(
+    this.balanceService.getAllUsersPin().subscribe(
       (data) => {
-        this.users = data;
+        this.membersPin = data;
         this.initializeCheckboxes();
       },
       (error) => {
@@ -87,10 +92,10 @@ export class UserListComponent implements OnInit {
   }
 
   initializeCheckboxes(): void {
-    this.users.forEach(user => {
-      this.userCheckboxes[user.username] = {};
+    this.membersPin.forEach(pin => {
+      this.userCheckboxes[pin.pin] = {};
       this.daysInMonth.forEach(day => {
-        this.userCheckboxes[user.username][day] = false;
+        this.userCheckboxes[pin.pin][day] = false;
       });
     });
   }
@@ -116,7 +121,32 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  checkBoxChange() {
-    this.checked = true;
+  checkBoxChange(pin: string, date: string) {
+    const selected = this.userCheckboxes[pin][date];
+    const memberSelection = { pin, date, selected };
+
+    this.http.post('http://localhost:8080/api/member-selections', memberSelection)
+      .subscribe(response => {
+        console.log('Selection saved:', response);
+      }, error => {
+        console.error('Error saving selection:', error);
+      });
+  }
+
+  loadFoodItems() {
+    this.listService.getFoodItems().subscribe(items => {
+      this.displayedItems = items;
+    });
+  }
+
+  loadMemberSelections() {
+    this.listService.getMemberSelections().subscribe(selections => {
+      selections.forEach((selection: { pin: string | number; date: string | number; selected: boolean; }) => {
+        if (!this.userCheckboxes[selection.pin]) {
+          this.userCheckboxes[selection.pin] = {};
+        }
+        this.userCheckboxes[selection.pin][selection.date] = selection.selected;
+      });
+    });
   }
 }

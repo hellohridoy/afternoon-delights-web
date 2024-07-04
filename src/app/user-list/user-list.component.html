@@ -13,21 +13,21 @@
       </thead>
       <tbody>
       <tr>
-        <td>Description</td>
+        <td>Food Item</td>
         <td *ngFor="let item of displayedItems">
           <input [(ngModel)]="item.description" class="form-control" />
         </td>
       </tr>
       <tr>
-        <td>Amount</td>
+        <td>Total Cost</td>
         <td *ngFor="let item of displayedItems">
           <input [(ngModel)]="item.amount" type="number" class="form-control" />
         </td>
       </tr>
-      <tr *ngFor="let user of users">
-        <td>{{ user.username }}</td>
+      <tr *ngFor="let pin of membersPin">
+        <td>{{ pin.pin }}</td>
         <td *ngFor="let date of displayedDates">
-          <input type="checkbox" (change)="checkBoxChange()" [(ngModel)]="userCheckboxes[user.username][date]" />
+          <input type="checkbox" (change)="checkBoxChange(pin.pin, date)" [(ngModel)]="userCheckboxes[pin.pin][date]" />
         </td>
       </tr>
       </tbody>
