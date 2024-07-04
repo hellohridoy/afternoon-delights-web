@@ -36,3 +36,21 @@ body, html {
   display: flex;
   flex-direction: column;
 }
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: center;
+}
+
+.footer small {
+  margin-top: 10px;
+  color: #6c757d;
+}
