@@ -57,6 +57,15 @@
           <small *ngIf="addNewMemberForm.get('unit')?.hasError('required')">Unit is required.</small>
         </div>
       </div>
+
+        <div class="col-md-3 ">
+          <label class="col" for="profileImage">Profile Image:</label>
+          <input id="profileImage" type="file" (change)="onFileSelected($event)" class="form-control" />
+          <div *ngIf="fileError">
+            <small class="text-danger">{{ fileError }}</small>
+          </div>
+        </div>
+
     </div>
 
     <div class="form-row mt-3">
@@ -64,5 +73,7 @@
         <button type="submit" [disabled]="addNewMemberForm.invalid" class="btn btn-primary">Submit</button>
       </div>
     </div>
+
   </form>
+
 </div>

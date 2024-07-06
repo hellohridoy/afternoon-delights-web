@@ -1,33 +1,68 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Afternoon Delights</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/dashboard')">Dashboard</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/login')">Login</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/add-member')">Add Member</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/balance')">Balance</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/meal')">Meal</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/list')">List</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/member-list')">Member List</a>
-        </li>
-      </ul>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Afternoon Delights</a>
+
+      <div class="d-flex justify-content-center flex-grow-1">
+        <form class="d-flex mx-lg-auto my-2 my-lg-0" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+          <input class="form-control me-2" formControlName="keyword" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/dashboard')">Dashboard</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/login')">Login</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/add-member')">Add Member</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/list')">List</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" (click)="redirectToPath('/member-list')">Member List</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+
+  <!-- Search Results Table -->
+  <div *ngIf="searchResults && searchResults.length > 0" class="mb-4">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Official Phone Number</th>
+        <th>Address</th>
+        <th>Role</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let member of searchResults">
+        <td>{{ member.name }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.officialPhoneNumber }}</td>
+        <td>{{ member.designation }}</td>
+        <td>{{ member.departments }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-</nav>
+
+  <!-- Table Form (Replace this with your actual table form code) -->
+  <div class="table-responsive">
+    <!-- Your table form code goes here -->
+  </div>
+</div>

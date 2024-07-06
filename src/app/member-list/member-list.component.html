@@ -27,8 +27,10 @@
         <td>{{ member.unit }}</td>
         <td>
           <button type="button" (click)="openUpdateMemberModal(member)" class="btn btn-primary btn-sm me-2">Update</button>
-          <button type="button" (click)="deleteMember(member.id)" class="btn btn-danger btn-sm">Delete</button>
+<!--          <button type="button" (click)="deleteMember(member.id)" class="">Delete</button>-->
+          <button class="details-button btn btn-info btn-sm" [routerLink]="['/member-details', member.id]">Details</button>
         </td>
+
       </tr>
       </tbody>
     </table>

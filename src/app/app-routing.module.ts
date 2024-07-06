@@ -9,6 +9,7 @@ import {AddMemberComponent} from "./add-member/add-member.component";
 import {BalanceComponent} from "./balance/balance.component";
 import {MealComponent} from "./meal/meal.component";
 import {MemberListComponent} from "./member-list/member-list.component";
+import { MemberDetailsComponent } from './member-details/member-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -19,10 +20,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-member', component: AddMemberComponent },
   { path: 'meal', component: BalanceComponent },
-  { path: 'balance', component: MealComponent },
   { path: 'member-list', component: MemberListComponent },
-
-];
+  { path: 'member-list', component: MemberListComponent },
+  { path: 'member-details/:id', component: MemberDetailsComponent },];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
