@@ -21,7 +21,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpdateMemberModalComponent } from './update-member-modal/update-member-modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
-import { MemberDetailsComponent } from './member-details/member-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +34,7 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
     MealComponent,
     MemberListComponent,
     UpdateMemberModalComponent,
-    MemberDetailsComponent,
-    UserListComponent
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

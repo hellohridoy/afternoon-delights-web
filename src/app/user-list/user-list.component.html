@@ -1,36 +1,35 @@
-<div class="container mt-4">
+<div class="container-fluid mt-4">
   <div class="d-flex justify-content-end mb-2">
     <button class="btn btn-primary me-2" (click)="showPrevious()">Previous 7 Days</button>
-    <button class="btn btn-primary" (click)="showNext()" >Next 7 Days</button>
+    <button class="btn btn-primary" (click)="showNext()">Next 7 Days</button>
   </div>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
       <tr>
         <th>Dates</th>
-        <th *ngFor="let date of displayedDates">{{ date }}</th>
+        <th *ngFor="let date of initialItemAndCost">{{ date }}</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>Food Item</td>
         <td *ngFor="let item of displayedItems">
-          <input [(ngModel)]="item.description" class="form-control" />
+          <input [(ngModel)]="item.description" class="form-control" (blur)="saveFoodItemWithDelay(item)" />
         </td>
       </tr>
       <tr>
         <td>Total Cost</td>
         <td *ngFor="let item of displayedItems">
-          <input [(ngModel)]="item.amount" type="number" class="form-control" />
+          <input [(ngModel)]="item.amount" type="number" class="form-control" (blur)="saveFoodItemWithDelay(item)" />
         </td>
       </tr>
       <tr *ngFor="let pin of membersPin">
         <td>{{ pin.pin }}</td>
-        <td *ngFor="let date of displayedDates">
+        <td *ngFor="let date of initialItemAndCost">
           <input type="checkbox" (change)="checkBoxChange(pin.pin, date)" [(ngModel)]="userCheckboxes[pin.pin][date]" />
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-</div>
