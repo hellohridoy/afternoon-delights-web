@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Member } from '../Member'; // Define this model
+import { Member } from '../Member';
+import {FormGroup} from "@angular/forms"; // Define this model
 
 @Injectable({
   providedIn: 'root'

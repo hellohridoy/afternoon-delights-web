@@ -14,13 +14,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { BalanceComponent } from './balance/balance.component';
 import { MealComponent } from './meal/meal.component';
-
 import { MemberListComponent } from './member-list/member-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpdateMemberModalComponent } from './update-member-modal/update-member-modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
+import {MemberDetailsComponent} from "./member-details/member-details.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +35,7 @@ import {MatInputModule} from "@angular/material/input";
     MemberListComponent,
     UpdateMemberModalComponent,
     UserListComponent,
+    MemberDetailsComponent,
   ],
   imports: [
     BrowserModule,

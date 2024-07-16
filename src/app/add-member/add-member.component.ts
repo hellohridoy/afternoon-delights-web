@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {AddMemberService} from "./add-member.service";
-import {UserService} from "../user.service";
+import { Router } from '@angular/router';
+import { AddMemberService } from './add-member.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-add-member',
@@ -16,22 +17,22 @@ export class AddMemberComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private memberService: AddMemberService,
-    private addmember:UserService
-  ) { this.addNewMemberForm = this.fb.group({
-    pin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    officialPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-    designation: ['', Validators.required],
-    departments: ['', Validators.required],
-    unit: ['', Validators.required]
-  });}
-
-  ngOnInit(): void {
-
+    private addmember: UserService
+  ) {
+    this.addNewMemberForm = this.fb.group({
+      pin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      officialPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      designation: ['', Validators.required],
+      departments: ['', Validators.required],
+      unit: ['', Validators.required]
+    });
   }
 
+  ngOnInit(): void {}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -76,11 +77,15 @@ export class AddMemberComponent implements OnInit {
                 } else {
                   console.log('Profile picture uploaded successfully', event);
                 }
+                this.router.navigate(['/member-list']);
               },
               error => {
                 console.error('Error uploading profile picture', error);
+                this.router.navigate(['/member-list']);
               }
             );
+          } else {
+            this.router.navigate(['/member-list']);
           }
         },
         error => {
