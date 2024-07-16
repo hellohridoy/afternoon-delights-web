@@ -37,8 +37,8 @@ export class UserService {
   }
 
 
-  addNewMember(newMember:any):Observable<any>{
-    return this.http.post(`${this.baseUrlForMember}/add-members`,newMember);
+  addNewMember(formData: FormData):Observable<any>{
+    return this.http.post(`${this.baseUrlForMember}/add-members`,formData);
   }
 
 }

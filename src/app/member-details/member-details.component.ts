@@ -1,8 +1,10 @@
 // member-details.component.ts
-import { Component, OnInit } from '@angular/core';
+import {Component, NgIterable, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from '../Member';
 import { MemberDetailsService } from './member-details.service';
+import {MatDialog} from "@angular/material/dialog";
+import {AddMoneyModalComponent} from "../add-money-modal/add-money-modal.component";
 
 @Component({
   selector: 'app-member-details',
@@ -12,14 +14,21 @@ import { MemberDetailsService } from './member-details.service';
 export class MemberDetailsComponent implements OnInit {
   member: Member | undefined;
   profilePicture: string | undefined;
+  memberId: number;
+  members:any;
+  balanceHistories: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private memberService: MemberDetailsService
-  ) {}
+    private memberService: MemberDetailsService,
+    public dialog: MatDialog
+  ) {
+    this.memberId = this.route.snapshot.params['id'];
+  }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       const memberId = params['id']; // Assuming 'id' is the route parameter for member ID
       if (memberId) {
@@ -60,6 +69,9 @@ export class MemberDetailsComponent implements OnInit {
     );
   }
 
+
+
+
   handleProfilePicture(memberId: number): void {
     console.log('Profile picture clicked for member ID:', memberId);
     this.loadProfilePicture(memberId);
@@ -68,4 +80,21 @@ export class MemberDetailsComponent implements OnInit {
   navigateToMembers(): void {
     this.router.navigate(['/member-list']);
   }
+  openAddMoneyModal(): void {
+    const dialogRef = this.dialog.open(AddMoneyModalComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchBalanceHistory(result.pin);
+      }
+    });
+  }
+  fetchBalanceHistory(pin: string): void {
+    this.memberService.getBalanceHistory(pin).subscribe(data => {
+      this.balanceHistories = data;
+    });
+  }
+
 }

@@ -1,7 +1,8 @@
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,6 +22,7 @@ import { UpdateMemberModalComponent } from './update-member-modal/update-member-
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MemberDetailsComponent} from "./member-details/member-details.component";
+import { AddMoneyModalComponent } from './add-money-modal/add-money-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +38,7 @@ import {MemberDetailsComponent} from "./member-details/member-details.component"
     UpdateMemberModalComponent,
     UserListComponent,
     MemberDetailsComponent,
+    AddMoneyModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,11 @@ import {MemberDetailsComponent} from "./member-details/member-details.component"
     NgMultiSelectDropDownModule.forRoot(),
     BrowserAnimationsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA], // Add NO_ERRORS_SCHEMA here

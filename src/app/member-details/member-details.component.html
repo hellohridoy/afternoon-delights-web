@@ -130,34 +130,31 @@
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2  ">assignment</i>Balance History<button class="btn btn-primary mr-2">Add money</button></h6>
+                <h6 class="d-flex align-items-center mb-3">
+                  <i class="material-icons text-info mr-2">assignment</i>Balance History
+                  <button class="btn btn-primary mr-2" (click)="openAddMoneyModal()">Add money</button>
+                </h6>
                 <table class="table">
                   <thead>
                   <tr>
                     <th scope="col">Pin</th>
                     <th scope="col">Balance</th>
-                    <th scope="col">P Due</th>
-                    <th scope="col">Extra :</th>
+                    <th scope="col">Date</th>
+
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>100</td>
-                    <td>00</td>
-                    <td>1000</td>
+                  <tr *ngIf="member">
+                    <td>{{member.pin}}</td>
+                    <td>{{member.addInitialValance}}</td>
+                    <td class="text-nowrap">{{member.createdAt}}</td>
+
+
+
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>100</td>
-                    <td>00</td>
-                    <td>1000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>100</td>
-                    <td>00</td>
-                    <td>1000</td>
+                  <tr *ngFor="let history of balanceHistories">
+                    <td>{{ history.transactionDate | date: 'short' }}</td>
+                    <td>{{ history.amount }}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -211,4 +208,36 @@
   </div>
 </div>
 </div>
+</div>
+<div class="container mt-4">
+  <h2>Balance History</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let history of balanceHistories">
+      <td>{{ history.transactionDate | date: 'short' }}</td>
+      <td>{{ history.amount | currency }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Member list component HTML -->
+<div class="container mt-4">
+  <!-- Other member list content -->
+  <table class="table table-bordered">
+    <!-- Table headers -->
+    <tbody>
+    <tr *ngFor="let member of members">
+      <!-- Other member details -->
+      <td>
+        <a [routerLink]="['/balance-history', member.id]" class="btn btn-info">View Balance History</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

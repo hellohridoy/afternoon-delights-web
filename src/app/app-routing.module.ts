@@ -20,6 +20,8 @@ const routes: Routes = [
   { path: 'member-list', component: MemberListComponent },
   { path: 'member-details/:id', component: MemberDetailsComponent },
   { path: 'members', component: MemberListComponent },
+  { path: 'balance-history/:id', component: MemberDetailsComponent },
+
 ]
 
 @NgModule({

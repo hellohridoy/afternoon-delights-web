@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AddMemberService } from './add-member.service';
 import { UserService } from '../user.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-member',
@@ -13,90 +13,65 @@ export class AddMemberComponent implements OnInit {
   addNewMemberForm: FormGroup;
   selectedFile: File | null = null;
   fileError: string | null = null;
-  uploadProgress: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private memberService: AddMemberService,
-    private addmember: UserService
+    private userService: UserService,
+    private http: HttpClient,
+    private router: Router
   ) {
     this.addNewMemberForm = this.fb.group({
       pin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(6)]],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      officialPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      officialPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       designation: ['', Validators.required],
       departments: ['', Validators.required],
-      unit: ['', Validators.required]
+      unit: ['', Validators.required],
+      balance: ['', [Validators.required, Validators.pattern('^\\d+\\.?\\d{0,2}$')]],
+      profileImage: [null]
     });
   }
 
   ngOnInit(): void {}
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      if (!allowedTypes.includes(this.selectedFile.type)) {
-        this.fileError = 'Only JPG, PNG, and GIF files are allowed.';
-        this.selectedFile = null;
-      } else if (this.selectedFile.size > 5 * 1024 * 1024) {
-        this.fileError = 'File size must be less than 5MB.';
-        this.selectedFile = null;
-      } else {
-        this.fileError = null;
-      }
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file && file.size > 0) {
+      this.selectedFile = file;
+      this.fileError = null;
+    } else {
+      this.fileError = 'Please select a valid file.';
     }
   }
 
   onSubmit(): void {
-    if (this.addNewMemberForm.valid) {
-      const memberData = {
-        pin: this.addNewMemberForm.get('pin')!.value,
-        name: this.addNewMemberForm.get('name')!.value,
-        email: this.addNewMemberForm.get('email')!.value,
-        officialPhoneNumber: this.addNewMemberForm.get('officialPhoneNumber')!.value,
-        designation: this.addNewMemberForm.get('designation')!.value,
-        departments: this.addNewMemberForm.get('departments')!.value,
-        unit: this.addNewMemberForm.get('unit')!.value
-      };
-
-      this.addmember.addNewMember(memberData).subscribe(
-        (response: any) => {
-          const memberId = response.id;
-          console.log('Member created successfully with ID:', memberId);
-
-          if (this.selectedFile && memberId) {
-            this.memberService.uploadProfilePicture(memberId, this.selectedFile).subscribe(
-              event => {
-                if (typeof event === 'string') {
-                  this.uploadProgress = event;
-                } else {
-                  console.log('Profile picture uploaded successfully', event);
-                }
-                this.router.navigate(['/member-list']);
-              },
-              error => {
-                console.error('Error uploading profile picture', error);
-                this.router.navigate(['/member-list']);
-              }
-            );
-          } else {
-            this.router.navigate(['/member-list']);
-          }
-        },
-        error => {
-          console.error('Error creating member', error);
-        }
-      );
-    } else {
-      this.addNewMemberForm.markAllAsTouched(); // Mark all fields as touched to show validation errors
-      if (!this.selectedFile) {
-        this.fileError = 'Profile image is required.';
-      }
+    if (this.addNewMemberForm.invalid) {
+      return;
     }
+
+    const formData = new FormData();
+    formData.append('pin', this.addNewMemberForm.get('pin')?.value);
+    formData.append('name', this.addNewMemberForm.get('name')?.value);
+    formData.append('email', this.addNewMemberForm.get('email')?.value);
+    formData.append('officialPhoneNumber', this.addNewMemberForm.get('officialPhoneNumber')?.value);
+    formData.append('designation', this.addNewMemberForm.get('designation')?.value);
+    formData.append('departments', this.addNewMemberForm.get('departments')?.value);
+    formData.append('unit', this.addNewMemberForm.get('unit')?.value);
+    formData.append('balance', this.addNewMemberForm.get('balance')?.value);
+
+    if (this.selectedFile) {
+      formData.append('profileImage', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.userService.addNewMember(formData).subscribe(
+      response => {
+        console.log('Member added successfully', response);
+        this.router.navigate(['/members']); // Navigate to the members list page or another appropriate page
+      },
+      error => {
+        console.error('Error adding member', error);
+      }
+    );
   }
 }

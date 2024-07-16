@@ -10,6 +10,8 @@ import {FormGroup} from "@angular/forms"; // Define this model
 export class MemberDetailsService {
 
   private baseUrl = 'http://localhost:8080/afternoon-delights/member'; // Adjust based on your backend URL
+  private baseUrlForBalanceHistory = 'http://localhost:8080/balance-history/member'; // Adjust based on your backend URL
+  private apiUrl = 'http://localhost:8080/api/balance-history';
 
   constructor(private http: HttpClient) { }
 
@@ -20,4 +22,12 @@ export class MemberDetailsService {
   getProfilePicture(id: number): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/${id}/profilePicture`, { responseType: 'blob' });
   }
+  addBalance(pin: string, amount: number): Observable<any> {
+    return this.http.post(this.apiUrl, { pin, amount });
+  }
+
+  getBalanceHistory(pin: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${pin}`);
+  }
+
 }

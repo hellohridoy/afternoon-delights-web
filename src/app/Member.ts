@@ -8,6 +8,7 @@ export interface Member {
   designation: string;
   departments: string;
   unit: string;
+  addInitialValance:string;
   createdAt: Date | null;
   updatedAt: Date | null;
   profilePicture: string; // Assuming profilePicture is a URL to the image
