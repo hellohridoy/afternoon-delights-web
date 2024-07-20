@@ -14,13 +14,13 @@
       <tbody>
       <tr>
         <td>Food Item</td>
-        <td *ngFor="let item of displayedItems">
+        <td *ngFor="let item of items">
           <input [(ngModel)]="item.description" class="form-control" (blur)="saveFoodItemWithDelay(item)" />
         </td>
       </tr>
       <tr>
         <td>Total Cost</td>
-        <td *ngFor="let item of displayedItems">
+        <td *ngFor="let item of items">
           <input [(ngModel)]="item.amount" type="number" class="form-control" (blur)="saveFoodItemWithDelay(item)" />
         </td>
       </tr>
@@ -33,3 +33,4 @@
       </tbody>
     </table>
   </div>
+</div>

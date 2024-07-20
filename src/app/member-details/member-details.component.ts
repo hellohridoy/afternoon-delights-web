@@ -5,6 +5,7 @@ import { Member } from '../Member';
 import { MemberDetailsService } from './member-details.service';
 import {MatDialog} from "@angular/material/dialog";
 import {AddMoneyModalComponent} from "../add-money-modal/add-money-modal.component";
+import {BalanceHistory} from "../BalanceHistory";
 
 @Component({
   selector: 'app-member-details',
@@ -16,7 +17,8 @@ export class MemberDetailsComponent implements OnInit {
   profilePicture: string | undefined;
   memberId: number;
   members:any;
-  balanceHistories: any[] = [];
+  balanceHistory: any[] | undefined
+  previousBalanceHistory: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +27,7 @@ export class MemberDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.memberId = this.route.snapshot.params['id'];
+
   }
 
   ngOnInit(): void {
@@ -34,6 +37,8 @@ export class MemberDetailsComponent implements OnInit {
       if (memberId) {
         this.fetchMember(memberId); // Fetch member data based on ID
         this.handleProfilePicture(memberId); // Fetch profile picture based on ID
+        this.fetchMemberPreviousBalanceHistory();
+
       } else {
         console.error('Member ID not found in route parameters');
         // Handle error (e.g., redirect or error message)
@@ -87,14 +92,26 @@ export class MemberDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.fetchBalanceHistory(result.pin);
+         // this.fetchBalanceHistory(result.pin);
+        this.fetchMemberPreviousBalanceHistory();
       }
     });
   }
   fetchBalanceHistory(pin: string): void {
-    this.memberService.getBalanceHistory(pin).subscribe(data => {
-      this.balanceHistories = data;
+    this.memberService.getBalanceHistory(pin).subscribe(balanceHistory => {
+      this.balanceHistory = balanceHistory;
+      console.log(balanceHistory)
     });
   }
 
+
+
+  private fetchMemberPreviousBalanceHistory() {
+    this.memberService.getMemberAllPreviousBalance().subscribe(data =>{
+      this.previousBalanceHistory=data
+    })
+  }
 }
+
+
+

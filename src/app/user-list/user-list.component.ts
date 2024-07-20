@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-    this.loadFoodItems();
+    // this.loadFoodItems();
     this.loadMemberSelections();
     this.loadInitialData();
   }
@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit {
     this.listService.getFoodItems().subscribe(
       items => {
         this.items = items;
-        this.updateDisplayedData();
+        // this.updateDisplayedData();
       },
       error => {
         console.error('Error fetching initial data:', error);
@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
     this.balanceService.getAllUsersPin().subscribe(
       data => {
         this.membersPin = data;
-        this.updateDisplayedData();
+        // this.updateDisplayedData();
       },
       error => {
         console.error('Error fetching users:', error);
@@ -147,8 +147,9 @@ export class UserListComponent implements OnInit {
       this.saveFoodItem(foodItem).subscribe(
         response => {
           console.log('Food item saved:', response);
-          this.updateDisplayedData();
+          // this.updateDisplayedData();
           this.fetchSavedFoodItems(); // Fetch the saved items after saving
+          this.updateFoodItem(foodItem)
         },
         error => {
           console.error('Error saving food item:', error);

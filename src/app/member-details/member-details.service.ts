@@ -11,7 +11,8 @@ export class MemberDetailsService {
 
   private baseUrl = 'http://localhost:8080/afternoon-delights/member'; // Adjust based on your backend URL
   private baseUrlForBalanceHistory = 'http://localhost:8080/balance-history/member'; // Adjust based on your backend URL
-  private apiUrl = 'http://localhost:8080/api/balance-history';
+  private apiUrl = 'http://localhost:8080/balance-history/add-balance';
+  private memberPreviousBalanceHistory = 'http://localhost:8080/balance-history';
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +28,10 @@ export class MemberDetailsService {
   }
 
   getBalanceHistory(pin: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${pin}`);
+    return this.http.get<any[]>(`${this.baseUrlForBalanceHistory}/${pin}`);
   }
 
+  getMemberAllPreviousBalance():Observable<any[]> {
+    return this.http.get<any[]>(`${this.memberPreviousBalanceHistory}/all`);
+  }
 }

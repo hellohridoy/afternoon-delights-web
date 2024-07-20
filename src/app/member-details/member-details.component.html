@@ -131,7 +131,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h6 class="d-flex align-items-center mb-3">
-                  <i class="material-icons text-info mr-2">assignment</i>Balance History
+                  <i class="material-icons text-info mr-2"></i>Balance History
                   <button class="btn btn-primary mr-2" (click)="openAddMoneyModal()">Add money</button>
                 </h6>
                 <table class="table">
@@ -144,17 +144,11 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngIf="member">
-                    <td>{{member.pin}}</td>
-                    <td>{{member.addInitialValance}}</td>
-                    <td class="text-nowrap">{{member.createdAt}}</td>
 
-
-
-                  </tr>
-                  <tr *ngFor="let history of balanceHistories">
-                    <td>{{ history.transactionDate | date: 'short' }}</td>
+                  <tr  *ngFor="let history of previousBalanceHistory">
+                    <td>{{ member?.name }}</td>
                     <td>{{ history.amount }}</td>
+                    <td>{{ history.createdAt | date: 'short' }}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -165,7 +159,7 @@
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Meal History </h6>
+                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Meal History </h6>
 
                 <table class="table">
                   <thead>
@@ -209,35 +203,35 @@
 </div>
 </div>
 </div>
-<div class="container mt-4">
-  <h2>Balance History</h2>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Date</th>
-      <th>Amount</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let history of balanceHistories">
-      <td>{{ history.transactionDate | date: 'short' }}</td>
-      <td>{{ history.amount | currency }}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-<!-- Member list component HTML -->
-<div class="container mt-4">
-  <!-- Other member list content -->
-  <table class="table table-bordered">
-    <!-- Table headers -->
-    <tbody>
-    <tr *ngFor="let member of members">
-      <!-- Other member details -->
-      <td>
-        <a [routerLink]="['/balance-history', member.id]" class="btn btn-info">View Balance History</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<!--<div class="container mt-4">-->
+<!--  <h2>Balance History</h2>-->
+<!--  <table class="table table-bordered">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th>Date</th>-->
+<!--      <th>Amount</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let history of balanceHistory">-->
+<!--      <td>{{ history.createdAt | date: 'short' }}</td>-->
+<!--      <td>{{ history.amount | currency }}</td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->
+<!--&lt;!&ndash; Member list component HTML &ndash;&gt;-->
+<!--<div class="container mt-4">-->
+<!--  &lt;!&ndash; Other member list content &ndash;&gt;-->
+<!--  <table class="table table-bordered">-->
+<!--    &lt;!&ndash; Table headers &ndash;&gt;-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let member of members">-->
+<!--      &lt;!&ndash; Other member details &ndash;&gt;-->
+<!--      <td>-->
+<!--        <a [routerLink]="['/balance-history', member.id]" class="btn btn-info">View Balance History</a>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->

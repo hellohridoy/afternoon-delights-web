@@ -1,0 +1,27 @@
+<!-- add-money-modal.component.html -->
+<h2 mat-dialog-title>Add Money</h2>
+<mat-dialog-content [formGroup]="addMoneyForm">
+  <mat-form-field>
+    <mat-label>PIN</mat-label>
+    <input matInput formControlName="pin" />
+    <mat-error *ngIf="addMoneyForm.get('pin')?.invalid && addMoneyForm.get('pin')?.touched">
+      <small *ngIf="addMoneyForm.get('pin')?.hasError('required')">PIN is required.</small>
+      <small *ngIf="addMoneyForm.get('pin')?.hasError('minlength')">PIN must be at least 4 digits.</small>
+      <small *ngIf="addMoneyForm.get('pin')?.hasError('maxlength')">PIN cannot exceed 6 digits.</small>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount" />
+    <mat-error *ngIf="addMoneyForm.get('amount')?.invalid && addMoneyForm.get('amount')?.touched">
+      <small *ngIf="addMoneyForm.get('amount')?.hasError('required')">Amount is required.</small>
+      <small *ngIf="addMoneyForm.get('amount')?.hasError('pattern')">Amount must be a valid number.</small>
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSave()" [disabled]="addMoneyForm.invalid">Save</button>
+</mat-dialog-actions>
+
