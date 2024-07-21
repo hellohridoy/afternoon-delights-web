@@ -101,10 +101,10 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Phone</h6>
+                <h6 class="mb-0">Pin</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{member.officialPhoneNumber}}
+                {{member.pin}}
               </div>
             </div>
               <hr>
@@ -143,12 +143,14 @@
 
                   </tr>
                   </thead>
-                  <tbody>
+                  <tbody >
 
                   <tr  *ngFor="let history of previousBalanceHistory">
-                    <td>{{ member?.name }}</td>
-                    <td>{{ history.amount }}</td>
-                    <td>{{ history.createdAt | date: 'short' }}</td>
+                    <p *ngIf="member?.pin===history.pin">
+                    <td  class=" text-center" >{{"    "+ history?.pin }}</td>
+                    <td class=" align-items-center">{{"    "+ history.amount }}</td>
+                    <td class=" align-items-center">{{"    "+ history.createdAt | date: 'short' }}</td>
+                    </p>
                   </tr>
                   </tbody>
                 </table>

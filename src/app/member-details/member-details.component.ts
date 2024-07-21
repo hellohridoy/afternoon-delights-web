@@ -39,6 +39,7 @@ export class MemberDetailsComponent implements OnInit {
         this.handleProfilePicture(memberId); // Fetch profile picture based on ID
         this.fetchMemberPreviousBalanceHistory();
 
+
       } else {
         console.error('Member ID not found in route parameters');
         // Handle error (e.g., redirect or error message)
@@ -50,7 +51,9 @@ export class MemberDetailsComponent implements OnInit {
     this.memberService.getMember(memberId).subscribe(
       (member: Member) => {
         this.member = member;
+        this.fetchMemberPreviousBalanceHistory()
       },
+
       (error: any) => {
         console.error('Error fetching member:', error);
         // Handle error (e.g., redirect or error message)
@@ -97,12 +100,7 @@ export class MemberDetailsComponent implements OnInit {
       }
     });
   }
-  fetchBalanceHistory(pin: string): void {
-    this.memberService.getBalanceHistory(pin).subscribe(balanceHistory => {
-      this.balanceHistory = balanceHistory;
-      console.log(balanceHistory)
-    });
-  }
+
 
 
 

@@ -11,6 +11,7 @@ import {MemberDetailsService} from "../member-details/member-details.service";
 })
 export class AddMoneyModalComponent {
   addMoneyForm: FormGroup;
+  private response: any;
 
   constructor(
     private memberDetailsService: MemberDetailsService,
@@ -34,7 +35,7 @@ export class AddMoneyModalComponent {
       const pin = this.addMoneyForm.get('pin')?.value;
       const amount = this.addMoneyForm.get('amount')?.value;
       this.memberDetailsService.addBalance(pin,amount).subscribe(response => {
-
+        this.response=response
         this.dialogRef.close(response);
       });
     }

@@ -27,10 +27,6 @@ export class MemberDetailsService {
     return this.http.post(this.apiUrl, { pin, amount });
   }
 
-  getBalanceHistory(pin: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrlForBalanceHistory}/${pin}`);
-  }
-
   getMemberAllPreviousBalance():Observable<any[]> {
     return this.http.get<any[]>(`${this.memberPreviousBalanceHistory}/all`);
   }
