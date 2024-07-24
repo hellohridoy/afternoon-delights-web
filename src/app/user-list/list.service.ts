@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ListService {
-  private apiUrlForFoodItems = 'http://localhost:8080/api/food-items';
+  private apiUrlForFoodItems = 'http://localhost:8080/api/food-items/get-item-cost';
   private apiUrlForMemberSelection = 'http://localhost:8080/api/member-selections';
   constructor(private http: HttpClient) {}
 
