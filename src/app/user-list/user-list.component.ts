@@ -28,16 +28,15 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-    // this.loadFoodItems();
+    this.loadFoodItems();
     this.loadMemberSelections();
-    this.loadInitialData();
   }
 
   loadInitialData() {
     this.listService.getFoodItems().subscribe(
       items => {
         this.items = items;
-        // this.updateDisplayedData();
+        this.updateDisplayedData();
       },
       error => {
         console.error('Error fetching initial data:', error);
@@ -49,7 +48,7 @@ export class UserListComponent implements OnInit {
     this.balanceService.getAllUsersPin().subscribe(
       data => {
         this.membersPin = data;
-        // this.updateDisplayedData();
+        this.updateDisplayedData();
       },
       error => {
         console.error('Error fetching users:', error);
@@ -100,12 +99,16 @@ export class UserListComponent implements OnInit {
   }
 
   showPrevious() {
-    this.currentStartDate.setDate(this.currentStartDate.getDate() - this.itemsPerPage);
+    const newStartDate = new Date(this.currentStartDate);
+    newStartDate.setDate(this.currentStartDate.getDate() - this.itemsPerPage);
+    this.currentStartDate = newStartDate;
     this.updateDisplayedData();
   }
 
   showNext() {
-    this.currentStartDate.setDate(this.currentStartDate.getDate() + this.itemsPerPage);
+    const newStartDate = new Date(this.currentStartDate);
+    newStartDate.setDate(this.currentStartDate.getDate() + this.itemsPerPage);
+    this.currentStartDate = newStartDate;
     this.updateDisplayedData();
   }
 
@@ -116,10 +119,8 @@ export class UserListComponent implements OnInit {
     this.http.post('http://localhost:8080/api/member-selections', memberSelection)
       .subscribe(response => {
         console.log('Selection saved:', response);
-        this.updateDisplayedData();
       }, error => {
         console.error('Error saving selection:', error);
-        this.updateDisplayedData();
       });
   }
 
@@ -147,9 +148,7 @@ export class UserListComponent implements OnInit {
       this.saveFoodItem(foodItem).subscribe(
         response => {
           console.log('Food item saved:', response);
-          // this.updateDisplayedData();
           this.fetchSavedFoodItems(); // Fetch the saved items after saving
-          this.updateFoodItem(foodItem)
         },
         error => {
           console.error('Error saving food item:', error);
@@ -160,18 +159,6 @@ export class UserListComponent implements OnInit {
 
   saveFoodItem(foodItem: Item): Observable<Item> {
     return this.listService.saveFoodItem(foodItem);
-  }
-
-  updateFoodItem(foodItem: Item): void {
-    this.listService.getFoodItems().subscribe(
-        (response: any) => {
-        console.log('Food item updated:', response);
-        this.updateDisplayedData();
-      },
-        (error: any) => {
-        console.error('Error updating food item:', error);
-      }
-    );
   }
 
   fetchSavedFoodItems(): void {
