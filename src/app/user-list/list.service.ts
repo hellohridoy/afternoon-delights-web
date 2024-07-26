@@ -6,22 +6,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ListService {
-  private apiUrlForFoodItems = 'http://localhost:8080/api/food-items/get-item-cost';
-  private apiUrlForMemberSelection = 'http://localhost:8080/api/member-selections';
+  private getFoodItemsAndCost = 'http://localhost:8080/api/food-items/get-item-cost';
+  private postFoodItemsAndCost = 'http://localhost:8080/api/food-items/save-item-cost';
+  private getMemberSelection = 'http://localhost:8080/api/member-selections/get-member-selection';
+  private postMemberSelection =  'http://localhost:8080/api/member-selections/post-member-selection';
   constructor(private http: HttpClient) {}
 
   getFoodItems(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrlForFoodItems);
+    return this.http.get<any[]>(this.getFoodItemsAndCost);
   }
 
-  saveFoodItem(foodItem: any): Observable<any> {
-    return this.http.post<any>(this.apiUrlForFoodItems, foodItem);
+  saveFoodItem(foodItemAndCost: any): Observable<any> {
+    return this.http.post<any>(this.postFoodItemsAndCost, foodItemAndCost);
   }
   getMemberSelections(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrlForMemberSelection);
+    return this.http.get<any[]>(this.getMemberSelection);
   }
 
-  saveMemberSelection(selection: any): Observable<any> {
-    return this.http.post<any>(this.apiUrlForMemberSelection, selection);
+  postMemberSelections(): Observable<any[]> {
+    return this.http.get<any[]>(this.postMemberSelection);
   }
 }

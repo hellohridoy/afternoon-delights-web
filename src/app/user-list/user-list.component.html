@@ -1,5 +1,9 @@
 <table class="table table-bordered table-striped">
   <thead class="thead-dark">
+  <div class="d-flex justify-content-right mb-2">
+    <button class="btn btn-primary me-2" (click)="showPrevious()">Previous 7 Days</button>
+    <button class="btn btn-primary" (click)="showNext()">Next 7 Days</button>
+  </div>
   <tr>
     <th>Dates</th>
     <th *ngFor="let date of initialItemAndCost">{{ date }}</th>

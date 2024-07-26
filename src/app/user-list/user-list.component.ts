@@ -27,21 +27,18 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadInitialData();
     this.loadUsers();
-    this.loadFoodItems();
     this.loadMemberSelections();
   }
 
   loadInitialData() {
-    this.listService.getFoodItems().subscribe(
-      items => {
-        this.items = items;
-        this.updateDisplayedData();
-      },
-      error => {
-        console.error('Error fetching initial data:', error);
-      }
-    );
+    this.listService.getFoodItems().subscribe(items => {
+      this.items = items;
+      this.updateDisplayedData();
+    }, error => {
+      console.error('Error fetching initial data:', error);
+    });
   }
 
   loadUsers() {
@@ -54,6 +51,20 @@ export class UserListComponent implements OnInit {
         console.error('Error fetching users:', error);
       }
     );
+  }
+
+  loadMemberSelections() {
+    this.listService.getMemberSelections().subscribe(selections => {
+      selections.forEach((selection: { pin: string; date: string; selected: boolean; }) => {
+        if (!this.userCheckboxes[selection.pin]) {
+          this.userCheckboxes[selection.pin] = {};
+        }
+        this.userCheckboxes[selection.pin][selection.date] = selection.selected;
+      });
+      this.updateDisplayedData();
+    }, error => {
+      console.error('Error fetching member selections:', error);
+    });
   }
 
   updateDisplayedData() {
@@ -124,26 +135,7 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  loadFoodItems() {
-    this.listService.getFoodItems().subscribe(items => {
-      this.items = items;
-      this.updateDisplayedData();
-    });
-  }
-
-  loadMemberSelections() {
-    this.listService.getMemberSelections().subscribe(selections => {
-      selections.forEach((selection: { pin: string; date: string; selected: boolean; }) => {
-        if (!this.userCheckboxes[selection.pin]) {
-          this.userCheckboxes[selection.pin] = {};
-        }
-        this.userCheckboxes[selection.pin][selection.date] = selection.selected;
-      });
-      this.updateDisplayedData();
-    });
-  }
-
-  saveFoodItemWithDelay(foodItem: Item): void {
+  saveFoodItemWithDelay(foodItem: any): void {
     setTimeout(() => {
       this.saveFoodItem(foodItem).subscribe(
         response => {
@@ -157,7 +149,7 @@ export class UserListComponent implements OnInit {
     }, 5000);
   }
 
-  saveFoodItem(foodItem: Item): Observable<Item> {
+  saveFoodItem(foodItem: any): Observable<any> {
     return this.listService.saveFoodItem(foodItem);
   }
 
@@ -172,4 +164,6 @@ export class UserListComponent implements OnInit {
       }
     );
   }
+
+  protected readonly Date = Date;
 }
