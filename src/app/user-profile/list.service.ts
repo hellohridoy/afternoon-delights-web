@@ -34,4 +34,8 @@ export class ListService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<MemberSelection>(`${this.apiUrl}/member-selections`, selection, { headers });
   }
+  trackByDate(index: number, item: Item): string {
+    return item.date;
+  }
+
 }

@@ -1,8 +1,8 @@
 <table class="table table-bordered table-striped">
   <thead class="thead-dark">
-  <div class="d-flex justify-content-right mb-2">
-    <button class="btn btn-primary me-2" (click)="showPrevious()">Previous 7 Days</button>
-    <button class="btn btn-primary" (click)="showNext()">Next 7 Days</button>
+  <div class="d-flex justify-content-left mb-2">
+    <button type="button" class="btn btn-primary" (click)="showPrevious()">Previous 7 Days</button>
+    <button type="button" class="btn btn-success" (click)="showNext()">Next 7 Days</button>
   </div>
   <tr>
     <th>Dates</th>
@@ -13,13 +13,13 @@
   <tr>
     <td>Food Item</td>
     <td *ngFor="let item of displayedItems">
-      <input [(ngModel)]="item.description" class="form-control" (blur)="saveFoodItemWithDelay(item)" />
+      <input  type="text" class="form-control" (blur)="saveFoodItemWithDelay(item)"[(ngModel)]="item.description" />
     </td>
   </tr>
   <tr>
     <td>Total Cost</td>
-    <td *ngFor="let item of displayedItems">
-      <input [(ngModel)]="item.amount" type="number" class="form-control" (blur)="saveFoodItemWithDelay(item)" />
+    <td *ngFor="let item of displayedItems; ">
+      <input type="number" class="form-control"  (blur)="saveFoodItemWithDelay(item)"  [(ngModel)]="item.amount" />
     </td>
   </tr>
   <tr *ngFor="let pin of membersPin">

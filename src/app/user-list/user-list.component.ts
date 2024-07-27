@@ -1,10 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Member } from '../Member';
-import { Item } from '../Item';
-import { BalanceService } from '../balance/balance.service';
-import { HttpClient } from '@angular/common/http';
-import { ListService } from './list.service';
-import { Observable } from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from "rxjs";
+import {ListService} from "./list.service";
+
+interface Member {
+  pin: string;
+}
+
+interface Item {
+  date: string;
+  description: string;
+  amount: number;
+}
+interface updateItemItem {
+  date: string;
+  description: string;
+  amount: number;
+}
 
 @Component({
   selector: 'app-user-list',
@@ -12,6 +24,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  private apiUrl = 'http://localhost:8080/api/food-itemst';
   displayedItems: Item[] = [];
   membersPin: Member[] = [];
   items: Item[] = [];
@@ -21,7 +34,6 @@ export class UserListComponent implements OnInit {
   userCheckboxes: { [pin: string]: { [date: string]: boolean } } = {};
 
   constructor(
-    private balanceService: BalanceService,
     private http: HttpClient,
     private listService: ListService
   ) { }
@@ -33,7 +45,8 @@ export class UserListComponent implements OnInit {
   }
 
   loadInitialData() {
-    this.listService.getFoodItems().subscribe(items => {
+    // Simulate HTTP call to fetch items
+    this.http.get<Item[]>('http://localhost:8080/api/food-items/get-item-cost').subscribe(items => {
       this.items = items;
       this.updateDisplayedData();
     }, error => {
@@ -42,9 +55,11 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers() {
-    this.balanceService.getAllUsersPin().subscribe(
+    // Simulate HTTP call to fetch users
+    this.http.get<Member[]>('http://localhost:8080/afternoon-delights/member/all-members-pins').subscribe(
       data => {
-        this.membersPin = data;
+        this.membersPin = data.map(member => ({ pin: member.pin.trim() })); // Trim any trailing spaces
+        console.log('Members Pin:', this.membersPin); // Log for debugging
         this.updateDisplayedData();
       },
       error => {
@@ -54,7 +69,8 @@ export class UserListComponent implements OnInit {
   }
 
   loadMemberSelections() {
-    this.listService.getMemberSelections().subscribe(selections => {
+    // Simulate HTTP call to fetch member selections
+    this.http.get<any[]>('http://localhost:8080/api/member-selections').subscribe(selections => {
       selections.forEach((selection: { pin: string; date: string; selected: boolean; }) => {
         if (!this.userCheckboxes[selection.pin]) {
           this.userCheckboxes[selection.pin] = {};
@@ -93,7 +109,7 @@ export class UserListComponent implements OnInit {
         this.items.push(item);
       }
       return item;
-    });
+    }).filter((item): item is Item => item !== undefined); // Filter out undefined items
   }
 
   initializeCheckboxes(): void {
@@ -127,7 +143,7 @@ export class UserListComponent implements OnInit {
     const selected = this.userCheckboxes[pin][date];
     const memberSelection = { pin, date, selected };
 
-    this.http.post('http://localhost:8080/api/member-selections', memberSelection)
+    this.http.post('http://localhost:8080/api/member-selections/get-member-selection', memberSelection)
       .subscribe(response => {
         console.log('Selection saved:', response);
       }, error => {
@@ -135,14 +151,14 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  saveFoodItemWithDelay(foodItem: any): void {
+  saveFoodItemWithDelay(foodItem: Item): void {
     setTimeout(() => {
       this.saveFoodItem(foodItem).subscribe(
-        response => {
-          console.log('Food item saved:', response);
+          (responseItems: any) => {
+          console.log('Food item saved:', responseItems);
           this.fetchSavedFoodItems(); // Fetch the saved items after saving
         },
-        error => {
+          (error: any) => {
           console.error('Error saving food item:', error);
         }
       );
