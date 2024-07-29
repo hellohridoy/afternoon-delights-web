@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from "rxjs";
-import {ListService} from "./list.service";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ListService } from './list.service';
 
 interface Member {
   pin: string;
 }
 
 interface Item {
-  date: string;
+  date: any;
   description: string;
   amount: number;
-}
-interface updateItemItem {
-  date: string;
-  description: string;
-  amount: number;
+  foodItem: string;
+  price: number;
 }
 
 @Component({
@@ -24,7 +21,7 @@ interface updateItemItem {
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  private apiUrl = 'http://localhost:8080/api/food-itemst';
+  private apiUrl = 'http://localhost:8080/api/food-items';
   displayedItems: Item[] = [];
   membersPin: Member[] = [];
   items: Item[] = [];
@@ -46,8 +43,8 @@ export class UserListComponent implements OnInit {
 
   loadInitialData() {
     // Simulate HTTP call to fetch items
-    this.http.get<Item[]>('http://localhost:8080/api/food-items/get-item-cost').subscribe(items => {
-      this.items = items;
+    this.http.get<Item[]>('http://localhost:8080/api/food-items/get-item-cost').subscribe(displayedItems => {
+      this.items = displayedItems; // Load all items
       this.updateDisplayedData();
     }, error => {
       console.error('Error fetching initial data:', error);
@@ -103,13 +100,13 @@ export class UserListComponent implements OnInit {
 
   updateDisplayedItems() {
     this.displayedItems = this.initialItemAndCost.map(date => {
-      let item = this.items.find(i => i.date === date);
+      let item: Item | undefined = this.items.find(i => i.date === date);
       if (!item) {
-        item = { date, description: '', amount: 0 }; // default item
+        item = { date, description: '', amount: 0, foodItem: '', price: 0 }; // default item
         this.items.push(item);
       }
       return item;
-    }).filter((item): item is Item => item !== undefined); // Filter out undefined items
+    });
   }
 
   initializeCheckboxes(): void {
@@ -154,25 +151,25 @@ export class UserListComponent implements OnInit {
   saveFoodItemWithDelay(foodItem: Item): void {
     setTimeout(() => {
       this.saveFoodItem(foodItem).subscribe(
-          (responseItems: any) => {
-          console.log('Food item saved:', responseItems);
+        (response: Item) => {
+          console.log('Food item saved:', response);
           this.fetchSavedFoodItems(); // Fetch the saved items after saving
         },
-          (error: any) => {
+        (error: any) => {
           console.error('Error saving food item:', error);
         }
       );
     }, 5000);
   }
 
-  saveFoodItem(foodItem: any): Observable<any> {
+  saveFoodItem(foodItem: Item): Observable<Item> {
     return this.listService.saveFoodItem(foodItem);
   }
 
   fetchSavedFoodItems(): void {
     this.listService.getFoodItems().subscribe(
-      items => {
-        this.items = items;
+      displayedItems => {
+        this.displayedItems = displayedItems;
         this.updateDisplayedData(); // Update the displayed data with the new items
       },
       error => {
