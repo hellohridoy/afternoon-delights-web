@@ -8,7 +8,7 @@ interface Member {
 }
 
 interface Item {
-  date: any;
+  date: string;
   description: string;
   amount: number;
   foodItem: string;
@@ -129,6 +129,12 @@ export class UserListComponent implements OnInit {
     this.updateDisplayedData();
   }
 
+  getDayName(date: string): string {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayIndex = new Date(date).getDay();
+    return days[dayIndex];
+  }
+
   showNext() {
     const newStartDate = new Date(this.currentStartDate);
     newStartDate.setDate(this.currentStartDate.getDate() + this.itemsPerPage);
@@ -140,7 +146,7 @@ export class UserListComponent implements OnInit {
     const selected = this.userCheckboxes[pin][date];
     const memberSelection = { pin, date, selected };
 
-    this.http.post('http://localhost:8080/api/member-selections/get-member-selection', memberSelection)
+    this.http.post('http://localhost:8080/api/member-selections', memberSelection)
       .subscribe(response => {
         console.log('Selection saved:', response);
       }, error => {
@@ -153,7 +159,7 @@ export class UserListComponent implements OnInit {
       this.saveFoodItem(foodItem).subscribe(
         (response: Item) => {
           console.log('Food item saved:', response);
-          this.fetchSavedFoodItems(); // Fetch the saved items after saving
+          this.updateDisplayedItem(response); // Update displayed item with the new data
         },
         (error: any) => {
           console.error('Error saving food item:', error);
@@ -164,6 +170,13 @@ export class UserListComponent implements OnInit {
 
   saveFoodItem(foodItem: Item): Observable<Item> {
     return this.listService.saveFoodItem(foodItem);
+  }
+
+  updateDisplayedItem(updatedItem: Item): void {
+    const index = this.displayedItems.findIndex(item => item.date === updatedItem.date);
+    if (index !== -1) {
+      this.displayedItems[index] = updatedItem; // Update the item in the displayed list
+    }
   }
 
   fetchSavedFoodItems(): void {

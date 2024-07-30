@@ -8,14 +8,19 @@
   </div>
   <tr>
     <th>Dates</th>
-    <th *ngFor="let date of initialItemAndCost">{{ date }}</th>
+    <th *ngFor="let date of initialItemAndCost">
+
+      {{ date }}
+      <br>
+      <small>{{ getDayName(date) }}</small>
+    </th>
   </tr>
   </thead>
   <tbody>
   <tr>
     <td>Food Item</td>
     <td *ngFor="let item of displayedItems">
-      <input [(ngModel)]="item.foodItem" type="text" class="form-control" (blur)="saveFoodItemWithDelay(item)"/>
+      <input [(ngModel)]="item.description" type="text" class="form-control" (blur)="saveFoodItemWithDelay(item)"/>
     </td>
   </tr>
   <tr>
