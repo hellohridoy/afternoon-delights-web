@@ -27,6 +27,7 @@ export class MemberDetailsService {
     return this.http.post(this.apiUrl, { pin, amount });
   }
 
+
   getMemberAllPreviousBalance():Observable<any[]> {
     return this.http.get<any[]>(`${this.memberPreviousBalanceHistory}/all`);
   }

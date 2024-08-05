@@ -16,7 +16,7 @@ export class MemberDetailsComponent implements OnInit {
   member: Member | undefined;
   profilePicture: string | undefined;
   memberId: number;
-  members:any;
+  members:any={pin:1111};
   balanceHistory: any[] | undefined
   previousBalanceHistory: any[] = [];
 
@@ -31,13 +31,14 @@ export class MemberDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.loadBalanceHistory();
     this.route.params.subscribe(params => {
       const memberId = params['id']; // Assuming 'id' is the route parameter for member ID
       if (memberId) {
         this.fetchMember(memberId); // Fetch member data based on ID
         this.handleProfilePicture(memberId); // Fetch profile picture based on ID
-        this.fetchMemberPreviousBalanceHistory();
+
+
 
 
       } else {
@@ -46,7 +47,11 @@ export class MemberDetailsComponent implements OnInit {
       }
     });
   }
-
+  loadBalanceHistory() {
+    this.memberService.getMemberAllPreviousBalance().subscribe(data => {
+      this.previousBalanceHistory = data;
+    });
+  }
   fetchMember(memberId: number): void {
     this.memberService.getMember(memberId).subscribe(
       (member: Member) => {
@@ -91,6 +96,7 @@ export class MemberDetailsComponent implements OnInit {
   openAddMoneyModal(): void {
     const dialogRef = this.dialog.open(AddMoneyModalComponent, {
       width: '250px',
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -107,6 +113,7 @@ export class MemberDetailsComponent implements OnInit {
   private fetchMemberPreviousBalanceHistory() {
     this.memberService.getMemberAllPreviousBalance().subscribe(data =>{
       this.previousBalanceHistory=data
+
     })
   }
 }

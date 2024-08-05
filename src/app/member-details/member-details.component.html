@@ -43,9 +43,11 @@
                 <p class="text-secondary mb-1" [innerHTML]="'<b>Department :</b> ' + member?.departments"></p>
                 <p class="text-secondary mb-1" [innerHTML]="'<b>Unit :</b> ' + member?.unit"></p>
                 <p class="no-wrap text-muted font-size-sm" [innerHTML]="'<b>Contact Number :</b> ' + member?.officialPhoneNumber"></p>
+                <h6 class="d-flex space-between mb-3">
+                <button class="btn btn-primary">Balance History</button>
+                  <button class="btn btn-primary" (click)="openAddMoneyModal()">Message</button>
+                </h6>
 
-                <button class=" btn btn-primary">Request Add money</button>
-                <button class="btn btn-outline-primary">Message</button>
               </div>
               </div>
             </div>
@@ -130,38 +132,39 @@
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3">
-                  <i class="material-icons text-info mr-2"></i>Balance History
-                  <button class="btn btn-primary mr-2" (click)="openAddMoneyModal()">Add money</button>
+                <h6 class="space-between mb-3">
+                  Balance History
+                  <button class="btn btn-primary" (click)="openAddMoneyModal()">Add money</button>
                 </h6>
                 <table class="table">
                   <thead>
                   <tr>
-                    <th scope="col">Pin</th>
-                    <th scope="col">Balance</th>
-                    <th scope="col">Date</th>
-
+                    <th scope="col" class="text-nowrap text-center align-middle">Pin</th>
+                    <th scope="col" class="text-nowrap text-center align-middle">Name</th>
+                    <th scope="col" class="text-nowrap text-center align-middle">Amount</th>
+                    <th scope="col" class="text-nowrap text-center align-middle">Date</th>
                   </tr>
                   </thead>
-                  <tbody >
+                  <tbody>
+                  <ng-container *ngIf="member">
 
-                  <tr  *ngFor="let history of previousBalanceHistory">
-                    <p *ngIf="member?.pin===history.pin">
-                    <td  class=" text-center" >{{"    "+ history?.pin }}</td>
-                    <td class=" align-items-center">{{"    "+ history.amount }}</td>
-                    <td class=" align-items-center">{{"    "+ history.createdAt | date: 'short' }}</td>
-                    </p>
-                  </tr>
+                    <tr   {{member.pin===history.pin}} *ngFor="let history of previousBalanceHistory">
+                      <td class="text-nowrap text-center align-middle">{{ history?.pin }}</td>
+                      <td class="text-nowrap text-center align-middle">{{ member.name }}</td>
+                      <td class="text-nowrap text-center align-middle">{{ history.amount }}</td>
+                      <td class="text-nowrap text-center align-middle">{{ history.createdAt | date: 'short' }}</td>
+                    </tr>
+                  </ng-container>
                   </tbody>
                 </table>
+              </div>
             </div>
           </div>
 
-        </div>
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Meal History </h6>
+                <h6 class="d-flex align-items-center mb-3">Meal History </h6>
 
                 <table class="table">
                   <thead>

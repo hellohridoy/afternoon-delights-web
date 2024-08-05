@@ -61,3 +61,8 @@ body{
   object-fit: cover; /* Ensures the picture covers the element while maintaining aspect ratio */
   border: 2px solid #ccc; /* Optional: Adds a border around the picture */
 }
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
