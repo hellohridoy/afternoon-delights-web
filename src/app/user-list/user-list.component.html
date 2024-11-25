@@ -1,39 +1,66 @@
+<div class="container mt-4">
+  <!-- Header Section -->
+  <h2 class="text-center">User Food Item Selection</h2>
 
-<!-- user-list.component.html -->
-<table class="table table-bordered table-striped">
-  <thead class="thead-dark">
-  <div class="d-flex justify-content-end mb-2">
-    <button class="btn btn-primary me-2" (click)="showPrevious()">Previous 7 Days</button>
-    <button class="btn btn-primary" (click)="showNext()">Next 7 Days</button>
+  <!-- Navigation Buttons for Pagination -->
+  <div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-outline-primary" (click)="showPrevious()">Previous</button>
+    <button class="btn btn-outline-primary" (click)="showNext()">Next</button>
   </div>
-  <tr>
-    <th>Dates</th>
-    <th *ngFor="let date of initialItemAndCost">
 
-      {{ date }}
-      <br>
-      <small>{{ getDayName(date) }}</small>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>Food Item</td>
-    <td *ngFor="let item of displayedItems">
-      <input [(ngModel)]="item.description" type="text" class="form-control" (blur)="saveFoodItemWithDelay(item)"/>
-    </td>
-  </tr>
-  <tr>
-    <td>Total Cost</td>
-    <td *ngFor="let item of displayedItems">
-      <input [(ngModel)]="item.amount" type="number" class="form-control" (blur)="saveFoodItemWithDelay(item)"/>
-    </td>
-  </tr>
-  <tr *ngFor="let pin of membersPin">
-    <td>{{ pin.pin }}</td>
-    <td *ngFor="let date of initialItemAndCost">
-      <input type="checkbox" (change)="checkBoxChange(pin.pin, date)" [(ngModel)]="userCheckboxes[pin.pin][date]" />
-    </td>
-  </tr>
-  </tbody>
-</table>
+  <!-- Table for Food Items -->
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Food Item</th>
+      <th>Total Cost</th>
+      <th *ngFor="let member of membersPin">{{ member.pin }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of displayedItems">
+      <!-- Date and Day -->
+      <td>{{ item.date }}</td>
+      <td>{{ getDayName(item.date) }}</td>
+
+      <!-- Food Item Input -->
+      <td>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="item.foodItem"
+          (blur)="saveFoodItemWithDelay(item)"
+          placeholder="Enter Food Item"
+        />
+      </td>
+
+      <!-- Total Cost Input -->
+      <td>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="item.amount"
+          (blur)="saveFoodItemWithDelay(item)"
+          placeholder="Enter Cost"
+        />
+      </td>
+
+      <!-- Checkboxes for Member Selection -->
+      <td *ngFor="let member of membersPin">
+        <input
+          type="checkbox"
+          [(ngModel)]="userCheckboxes[member.pin][item.date]"
+          (change)="checkBoxChange(member.pin, item.date)"
+        />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Save Data Button -->
+  <div class="text-center mt-4">
+    <button class="btn btn-success" (click)="sendPostRequest()">Save Data</button>
+  </div>
+</div>

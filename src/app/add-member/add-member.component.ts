@@ -28,7 +28,7 @@ export class AddMemberComponent implements OnInit {
       designation: ['', Validators.required],
       departments: ['', Validators.required],
       unit: ['', Validators.required],
-      balance: ['', [Validators.required, Validators.pattern('^\\d+\\.?\\d{0,2}$')]],
+      balance: [''],
       profileImage: [null]
     });
   }
@@ -58,7 +58,11 @@ export class AddMemberComponent implements OnInit {
     formData.append('designation', this.addNewMemberForm.get('designation')?.value);
     formData.append('departments', this.addNewMemberForm.get('departments')?.value);
     formData.append('unit', this.addNewMemberForm.get('unit')?.value);
-    formData.append('balance', this.addNewMemberForm.get('balance')?.value);
+
+    const balance = this.addNewMemberForm.get('balance')?.value;
+    if (balance !== null && balance !== undefined) {
+      formData.append('balance', balance);
+    }
 
     if (this.selectedFile) {
       formData.append('profileImage', this.selectedFile, this.selectedFile.name);

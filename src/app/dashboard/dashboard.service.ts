@@ -1,16 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
-  private baseUrl = 'http://localhost:8080/afternoon-delights/balance';
+export class MemberService {
+  private apiUrl = 'http://localhost:8080/afternoon-delights/members/balance-infos'; // Update with your API base URL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getTotalBalance(): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/total`);
+  getMemberBalanceInfo(searchParams?: string): Observable<any> {
+    const url = searchParams ? `${this.apiUrl}?searchParams=${searchParams}` : this.apiUrl;
+    return this.http.get<any>(url);
   }
 }

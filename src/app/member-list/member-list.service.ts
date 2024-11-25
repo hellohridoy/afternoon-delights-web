@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
 export class MemberListService {
 
 
-  private baseUrlForMember = 'http://localhost:8080/afternoon-delights/member';
+  private baseUrlForMember = 'http://localhost:8080/afternoon-delights/members/all-members';
 
   constructor(private http: HttpClient) { }
 
 
 
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrlForMember}/all`);
+    return this.http.get<any[]>(`${this.baseUrlForMember}`);
   }
 
   deleteMember(id: number): Observable<any> {

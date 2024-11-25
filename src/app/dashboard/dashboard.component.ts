@@ -1,26 +1,44 @@
-import {Component, OnInit} from '@angular/core';
-import {DashboardService} from "./dashboard.service";
-
+import { Component, OnInit } from '@angular/core';
+import {MemberService} from "./dashboard.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit{
-  totalBalance: number | undefined;
-  constructor(private dashboardService: DashboardService) { }
+export class DashboardComponent implements OnInit {
+  data: any;
+  isLoading: boolean = true;
+  errorMessage: string = '';
+
+  constructor(private memberService: MemberService) {}
 
   ngOnInit(): void {
-    this.getTotalBalance();
+    this.fetchMemberBalanceInfo();
   }
-  getTotalBalance(): void {
-    this.dashboardService.getTotalBalance().subscribe(
-      (data: number) => {
-        this.totalBalance = data;
+
+  fetchMemberBalanceInfo(): void {
+    this.memberService.getMemberBalanceInfo().subscribe(
+      (response: any) => {
+        this.data = response;
+        this.isLoading = false;
       },
-      (error: any) => {
-        console.error('Error fetching total balance', error);
+      (error) => {
+        this.errorMessage = 'Data not found.';
+        this.isLoading = false;
       }
     );
   }
+  getBackgroundColor(index: number): string {
+    const colors = [
+      '#ffcccc', // Light Red
+      '#ccffcc', // Light Green
+      '#ccccff', // Light Blue
+      '#ffffcc', // Light Yellow
+      '#ffccff', // Light Pink
+      '#ccffff', // Light Cyan
+      '#ffe6cc'  // Light Orange
+    ];
+    return colors[index % colors.length];
+  }
+
 }

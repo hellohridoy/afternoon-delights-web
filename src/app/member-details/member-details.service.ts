@@ -9,15 +9,15 @@ import {FormGroup} from "@angular/forms"; // Define this model
 })
 export class MemberDetailsService {
 
-  private baseUrl = 'http://localhost:8080/afternoon-delights/member'; // Adjust based on your backend URL
+  private baseUrl = 'http://localhost:8080/afternoon-delights/members/all-members'; // Adjust based on your backend URL
   private baseUrlForBalanceHistory = 'http://localhost:8080/balance-history/member'; // Adjust based on your backend URL
   private apiUrl = 'http://localhost:8080/balance-history/add-balance';
   private memberPreviousBalanceHistory = 'http://localhost:8080/balance-history';
 
   constructor(private http: HttpClient) { }
 
-  getMember(id: number): Observable<Member> {
-    return this.http.get<Member>(`${this.baseUrl}/${id}`);
+  getMember(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
 
   getProfilePicture(id: number): Observable<Blob> {

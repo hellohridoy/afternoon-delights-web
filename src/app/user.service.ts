@@ -10,7 +10,7 @@ import {User} from "./User";
 export class UserService {
 
   private baseUrl = 'http://localhost:8080/api/users';
-  private baseUrlForMember = 'http://localhost:8080/afternoon-delights/member';
+  private baseUrlForMember = 'http://localhost:8080npm/afternoon-delights/members/all-members';
 
   constructor(private http: HttpClient) { }
 
@@ -38,7 +38,7 @@ export class UserService {
 
 
   addNewMember(formData: FormData):Observable<any>{
-    return this.http.post(`${this.baseUrlForMember}/add-members`,formData);
+    return this.http.post(`${this.baseUrlForMember}`,formData);
   }
 
 }

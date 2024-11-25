@@ -11,7 +11,7 @@ import {AddMemberService} from "../add-member/add-member.service";
 export class NavbarComponent {
   searchForm: FormGroup;
   searchResults: any[] = [];
-  constructor(private rounter:Router,private fb: FormBuilder, private memberService: AddMemberService) {
+  constructor(private router:Router,private fb: FormBuilder, private memberService: AddMemberService) {
     this.searchForm = this.fb.group({
       keyword: ['']
     });
@@ -21,7 +21,7 @@ export class NavbarComponent {
   }
 
   redirectToPath(path:string){
-    this.rounter.navigate([path]);
+    this.router.navigate([path]);
   }
 
   onSearch() {
